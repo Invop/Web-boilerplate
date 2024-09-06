@@ -1,6 +1,8 @@
-@import 'src/fonts/Roboto.css';
+@import "global";
 @import "header";
 /* General container setup */
 body {
-  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  max-width: 1200px;
+  font-family: $base-font-family;
 }
