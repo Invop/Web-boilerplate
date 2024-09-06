@@ -1,0 +1,186 @@
+
+
+.container {
+  position: relative;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo {
+  font-size: 3em;
+  color: #fff;
+  text-shadow: 0 -1px 1px rgba(255, 69, 0, 0.8), 0 1px 2px #000;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 10px;
+  margin-right: 10px;
+  width: 100%;
+  font-size: 1em;
+  flex: 1; /* To allow growing for responsiveness */
+}
+
+.search-button {
+  padding: 10px 20px;
+  margin-left: 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #ff5700; /* Text color */
+  border: 2px solid #ff5700; /* Border color */
+  background-color: white; /* Background color */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px;
+  margin-left: -20px;
+  font-weight: bolder;
+}
+
+/* Styles for specific buttons */
+.navigation-buttons .btn-teachers,
+.navigation-buttons .btn-statistics,
+.navigation-buttons .btn-favorites,
+.navigation-buttons .btn-about {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  color: #ff5700; /* Set text color to orange */
+  border: none; /* Remove any border */
+  background: none; /* Ensure no background color */
+}
+
+.btn-add-teacher {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  color: #ff5700; /* Text color */
+  border: 2px solid #ff5700; /* Border color */
+  background-color: white; /* Background color */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  margin-left: auto; /* Push "Add teacher" to the far right */
+  cursor: pointer;
+}
+
+/* Responsive styles for screens less than 768px */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-logo {
+    font-size: 2em;
+  }
+
+  .search-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%; /* Make input take full width */
+    max-width: 340px; /* Set a max-width for better visual appearance */
+  }
+
+  .search-button {
+    width: 100%; /* Make button take full width */
+    max-width: 150px; /* Ensure button does not become too large */
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px; /* Reduce space between buttons */
+    margin-top: 10px;
+  }
+
+  .navigation-buttons button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .btn-add-teacher {
+    margin-left: 0; /* Remove auto margin */
+  }
+}
+
+/* Additional responsive styles for screens less than 480px */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .site-logo {
+    font-size: 1.8em;
+    text-align: center;
+  }
+  .search-container {
+    width: 100%;
+    margin-top: 5px;
+    justify-content: center;
+  }
+
+  .search-box {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 105%; /* Extend width to 80% of the parent */
+    font-size: 0.9em;
+    margin-right: 0;
+    margin-top: 5px;
+    padding: 8px;
+  }
+
+  .search-button {
+    width: 100%; /* Match width of input */
+    font-size: 0.9em;
+    margin-top: 5px;
+    padding: 8px;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0;
+  }
+
+  .navigation-buttons button {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+  }
+
+  .btn-add-teacher {
+    margin: 10px 0 0 0;
+    width: 100%;
+    padding: 8px;
+  }
+}
