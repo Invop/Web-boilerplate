@@ -31,6 +31,7 @@
   width: 220px;
   font-size: 15px;
   flex: 1;
+  transition: width 0.3s ease;
   &:hover {
     width: 400px;
   }

@@ -11,3 +11,19 @@ body {
   margin: 0 auto;
   max-width: 1000px;
 }
+
+.section {
+  position: relative;
+  margin-top: 40px;
+  padding-top: 40px;
+}
+.section::before {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 2px;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 25%;
+}
