@@ -1,7 +1,4 @@
 
-
-
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -30,7 +27,7 @@
   margin-right: 10px;
   width: 100%;
   font-size: 1em;
-  flex: 1; /* To allow growing for responsiveness */
+  flex: 1;
 }
 
 .search-button {
@@ -38,10 +35,10 @@
   margin-left: 20px;
   font-size: 1.2em;
   cursor: pointer;
-  color: #ff5700; /* Text color */
-  border: 1px solid #ff5700; /* Border color */
-  background-color: white; /* Background color */
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  color: #ff5700;
+  border: 1px solid #ff5700;
+  background-color: white;
+  box-sizing: border-box;
 }
 
 .navigation-buttons {
@@ -60,18 +57,18 @@
 .navigation-buttons .btn-about {
   font-size: 1.2em;
   padding: 10px 20px;
-  color: #ff5700; /* Set text color to orange */
-  border: none; /* Remove any border */
-  background: none; /* Ensure no background color */
+  color: #ff5700;
+  border: none;
+  background: none;
 }
 
 .btn-add-teacher {
   font-size: 1.2em;
   padding: 10px 20px;
-  color: #ff5700; /* Text color */
-  border: 1px solid #ff5700; /* Border color */
-  background-color: white; /* Background color */
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-  margin-left: auto; /* Push "Add teacher" to the far right */
+  color: #ff5700;
+  border: 1px solid #ff5700;
+  background-color: white;
+  box-sizing: border-box;
+  margin-left: auto;
   cursor: pointer;
 }
