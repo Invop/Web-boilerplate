@@ -24,6 +24,7 @@
 }
 
 .teacher-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   justify-items: center;
@@ -33,7 +34,15 @@
   gap: 1rem;
 }
 
+.teacher-card .star-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 50px;
+  color: gold;
+}
 .teacher-card {
+  position: relative;
   width: 150px;
   height: 300px;
   display: flex;
