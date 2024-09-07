@@ -4,65 +4,101 @@ $alternate-row-bg: #f9f9f9;
 $hover-bg: #dadada;
 $table-max-width: 1000px;
 $header-underline-color: #333;
+$primary-color: #1a9cb0;
+$last-page-color: #10616d;
+$active-page-color: #222222;
+$hover-bg-color: #ddd;
+
+
 .table-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
   max-width: $table-max-width;
+  position: relative;
+
+  table {
+    width: 100%;
+    max-width: $table-max-width;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    thead, tbody {
+      tr {
+        display: flex;
+        width: 100%;
+      }
+    }
+    th, td {
+      flex: 1;
+      padding: 12px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+
+    th {
+      background-color: $header-bg;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid $border-color;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $header-underline-color;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+      }
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: $alternate-row-bg;
+      }
+
+      tr:hover {
+        background-color: $hover-bg;
+      }
+    }
+  }
 }
 
-table {
-  width: 100%;
-  max-width: $table-max-width;
-  border-collapse: separate;
-  border-spacing: 0;
+#pagination {
+  margin-top: 10px;
+  float: left;
+  .page-link, .dots {
+    margin: 0 5px;
+    text-decoration: none;
+    color: $primary-color;
+    cursor: pointer;
+    transition: color 0.3s;
 
-  thead, tbody {
-    tr {
-      display: flex;
-      width: 100%;
+    &:hover {
+      color: $hover-bg-color;
     }
   }
 
-  th, td {
-    flex: 1;
-    padding: 12px;
-    text-align: left;
-    display: flex;
-    align-items: center;
-  }
-
-  th {
-    background-color: $header-bg;
+  .active {
+    color: $active-page-color;
     font-weight: bold;
-    color: #333;
-    border-bottom: 1px solid $border-color;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background-color: $header-underline-color;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    &:hover::after {
-      transform: scaleX(1);
-    }
   }
 
-  tbody {
-    tr:nth-child(even) {
-      background-color: $alternate-row-bg;
-    }
+  .last {
+    color: $last-page-color;
+  }
 
-    tr:hover {
-      background-color: $hover-bg;
-    }
+  .dots {
+    cursor: default;
   }
 }

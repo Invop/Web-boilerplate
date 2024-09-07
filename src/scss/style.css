@@ -206,36 +206,37 @@
 
 .table-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
   max-width: 1000px;
+  position: relative;
 }
-
-table {
+.table-container table {
   width: 100%;
   max-width: 1000px;
   border-collapse: separate;
   border-spacing: 0;
 }
-table thead tr, table tbody tr {
+.table-container table thead tr, .table-container table tbody tr {
   display: flex;
   width: 100%;
 }
-table th, table td {
+.table-container table th, .table-container table td {
   flex: 1;
   padding: 12px;
   text-align: left;
   display: flex;
   align-items: center;
 }
-table th {
+.table-container table th {
   background-color: #f5f5f5;
   font-weight: bold;
   color: #333;
   border-bottom: 1px solid #e0e0e0;
   position: relative;
 }
-table th::after {
+.table-container table th::after {
   content: "";
   position: absolute;
   left: 0;
@@ -246,14 +247,39 @@ table th::after {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-table th:hover::after {
+.table-container table th:hover::after {
   transform: scaleX(1);
 }
-table tbody tr:nth-child(even) {
+.table-container table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-table tbody tr:hover {
+.table-container table tbody tr:hover {
   background-color: #dadada;
+}
+
+#pagination {
+  margin-top: 10px;
+  float: left;
+}
+#pagination .page-link, #pagination .dots {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #1a9cb0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#pagination .page-link:hover, #pagination .dots:hover {
+  color: #ddd;
+}
+#pagination .active {
+  color: #222222;
+  font-weight: bold;
+}
+#pagination .last {
+  color: #10616d;
+}
+#pagination .dots {
+  cursor: default;
 }
 
 /* General container setup */
