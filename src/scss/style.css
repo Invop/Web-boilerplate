@@ -97,11 +97,13 @@
   display: flex;
   align-items: center;
 }
-
 .top-teacher-filter label {
   color: #a19fa3;
   font-size: 14px;
   margin-right: 10px;
+}
+.top-teacher-filter label:hover {
+  color: #000;
 }
 
 .top-teacher-filter select {
@@ -135,6 +137,7 @@
   right: 5px;
   font-size: 50px;
   color: gold;
+  z-index: 10;
 }
 
 .teacher-card {
@@ -148,6 +151,10 @@
   padding: 1rem;
   box-sizing: border-box;
 }
+.teacher-card:hover .teacher-image {
+  transform: scale(1.1);
+  border-color: #993400;
+}
 
 .teacher-image {
   width: 150px;
@@ -156,6 +163,7 @@
   border: 3px solid #ff5700;
   margin-bottom: 10px;
   flex-shrink: 0;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .teacher-info {
@@ -219,7 +227,9 @@ body {
 
 .section-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .section::before {
