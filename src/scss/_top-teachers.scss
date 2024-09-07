@@ -1,8 +1,12 @@
+@import "global";
 .top-teacher-filter {
   display: flex;
   align-items: center;
 }
-
+.top-teacher-filter label {
+  color: #a19fa3;
+  margin-right: 10px;
+}
 .divider {
   display: inline-block;
   width: 1px;
@@ -17,4 +21,69 @@
                   black 2px
   );
 
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.teacher-card {
+  width: 150px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.teacher-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid $base-color;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.teacher-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  justify-content: space-around;
+}
+
+.teacher-info-name,
+.teacher-info-last-name,
+.teacher-info-specialization,
+.teacher-info-geo {
+  margin: 0;
+}
+.teacher-info-name,
+.teacher-info-last-name{
+  font-size: 20px;
+  font-weight: bold;
+}
+.teacher-info-container{
+  margin-bottom: 10px;
+}
+
+.teacher-info-specialization {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6a6a6a;
+  margin-bottom: 10px;
+}
+
+.teacher-info-geo{
+  font-size: 12px;
+  font-weight: lighter;
 }
