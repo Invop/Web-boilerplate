@@ -90,3 +90,33 @@
     cursor: default;
   }
 }
+
+
+#pagination {
+  margin-top: 10px;
+  float: left;
+  .page-link, .dots {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #1a9cb0;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #ddd;
+    }
+  }
+
+  .active {
+    color: #222222;
+    font-weight: bold;
+  }
+
+  .last {
+    color: #10616d;
+  }
+
+  .dots {
+    cursor: default;
+  }
+}

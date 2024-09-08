@@ -2,6 +2,7 @@
 @import "header";
 @import "top-teachers";
 @import "statistics";
+@import "favorites";
 /* General container setup */
 body {
   margin: 0 auto;
@@ -19,15 +20,19 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-top: 40px;
+  margin: 40px auto 0;
   padding-top: 40px;
+  max-width: 90%;
+  width: 100%;
 }
+
 .section-title {
   text-align: center;
   margin-bottom: 40px;
   font-size: 32px;
   font-weight: bold;
 }
+
 .section::before {
   content: '';
   display: block;
@@ -37,5 +42,46 @@ body {
   position: absolute;
   top: 0;
   left: 27.5%;
+}
 
+/* Media queries */
+@media (max-width: 768px) {
+  body {
+    max-width: 80%;
+    padding: 0 20px;
+  }
+
+  .container {
+    max-width: 80%;
+  }
+
+  .section {
+    margin-top: 30px;
+    padding-top: 30px;
+    max-width: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .section::before {
+    width: 50%;
+    left: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .section::before {
+    width: 55%;
+    left: 22.5%;
+  }
 }

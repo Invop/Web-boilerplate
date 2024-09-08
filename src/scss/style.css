@@ -282,6 +282,108 @@
   cursor: default;
 }
 
+#pagination {
+  margin-top: 10px;
+  float: left;
+}
+#pagination .page-link, #pagination .dots {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #1a9cb0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#pagination .page-link:hover, #pagination .dots:hover {
+  color: #ddd;
+}
+#pagination .active {
+  color: #222222;
+  font-weight: bold;
+}
+#pagination .last {
+  color: #10616d;
+}
+#pagination .dots {
+  cursor: default;
+}
+
+.section {
+  position: relative;
+}
+.section .carousel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1180px;
+}
+.section .carousel-inner {
+  display: flex;
+  overflow-x: hidden;
+  gap: 40px;
+}
+.section .carousel-control {
+  cursor: pointer;
+  width: 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.section .carousel-control img {
+  width: 100%;
+  height: auto;
+}
+.section .carousel-control.left {
+  margin-right: 30px;
+}
+.section .carousel-control.right {
+  margin-left: 30px;
+}
+.section .carousel-control.right img {
+  transform: rotate(180deg);
+}
+.section .carousel-control .arrow-hover {
+  display: none;
+}
+.section .carousel-control:hover .arrow-default {
+  display: none;
+}
+.section .carousel-control:hover .arrow-hover {
+  display: block;
+}
+.section .teacher-card {
+  flex: 0 0 auto;
+}
+
+/* Update media queries and add styles for hidden cards */
+@media (max-width: 1000px) {
+  .section .carousel-inner > :nth-child(n+4) {
+    display: none;
+  }
+  .section .carousel-inner {
+    justify-content: space-around;
+  }
+}
+@media (max-width: 768px) {
+  .section .carousel-inner > :nth-child(n+3) {
+    display: none;
+  }
+  .section .carousel-inner {
+    justify-content: space-around;
+  }
+}
+@media (max-width: 500px) {
+  .section .carousel-inner > :nth-child(n+2) {
+    display: none;
+  }
+  .section .carousel-inner {
+    justify-content: space-around;
+  }
+}
+.section .carousel-inner > :first-child {
+  margin-left: 6px;
+}
+
 /* General container setup */
 body {
   margin: 0 auto;
@@ -299,8 +401,10 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-top: 40px;
+  margin: 40px auto 0;
   padding-top: 40px;
+  max-width: 90%;
+  width: 100%;
 }
 
 .section-title {
@@ -319,6 +423,42 @@ body {
   position: absolute;
   top: 0;
   left: 27.5%;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  body {
+    max-width: 80%;
+    padding: 0 20px;
+  }
+  .container {
+    max-width: 80%;
+  }
+  .section {
+    margin-top: 30px;
+    padding-top: 30px;
+    max-width: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  .section::before {
+    width: 50%;
+    left: 25%;
+  }
+}
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .section::before {
+    width: 55%;
+    left: 22.5%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
