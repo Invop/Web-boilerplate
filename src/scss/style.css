@@ -314,7 +314,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1180px;
+  max-width: 1000px;
 }
 .section .carousel-inner {
   display: flex;
@@ -334,7 +334,7 @@
   height: auto;
 }
 .section .carousel-control.left {
-  margin-right: 30px;
+  margin-right: 10px;
 }
 .section .carousel-control.right {
   margin-left: 30px;
@@ -382,6 +382,23 @@
 }
 .section .carousel-inner > :first-child {
   margin-left: 6px;
+}
+
+.about-section {
+  padding: 40px 0 0;
+}
+
+.about-section p {
+  padding: 0 0 20px;
+}
+
+.about-text {
+  max-width: 1000px;
+  text-align: start;
+}
+.about-text p {
+  font-weight: 100;
+  font-size: 12px;
 }
 
 /* General container setup */

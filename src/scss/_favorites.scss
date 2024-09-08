@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1180px;
+    max-width: 1000px;
 
     &-inner {
       display: flex;
@@ -27,7 +27,7 @@
         height: auto;
       }
       &.left{
-        margin-right: 30px;
+        margin-right: 10px;
       }
       &.right {
         margin-left: 30px;
