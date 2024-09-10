@@ -4,16 +4,29 @@
 @import "statistics";
 @import "favorites";
 @import "about";
+
 /* General container setup */
 body {
-  margin: 0 auto;
-  max-width: 1200px;
+  margin: 0;
   font-family: $base-font-family;
+}
+
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .container {
   margin: 0 auto;
   max-width: 1000px;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
 }
 
 .section {
@@ -25,6 +38,15 @@ body {
   padding-top: 40px;
   max-width: 90%;
   width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 30px auto 0;
+  }
+
+  @media (max-width: 480px) {
+    margin: 20px auto 0;
+    padding-top: 30px;
+  }
 }
 
 .section-title {
@@ -32,6 +54,16 @@ body {
   margin-bottom: 40px;
   font-size: 32px;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
 }
 
 .section::before {
@@ -43,4 +75,14 @@ body {
   position: absolute;
   top: 0;
   left: 27.5%;
+
+  @media (max-width: 768px) {
+    width: 50%;
+    left: 25%;
+  }
+
+  @media (max-width: 480px) {
+    width: 60%;
+    left: 20%;
+  }
 }

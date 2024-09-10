@@ -1,8 +1,14 @@
-.header {
+.search-and-logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+}
+@media (max-width: 768px) {
+  .search-and-logo {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .site-logo {
@@ -13,15 +19,32 @@
 .site-logo:hover {
   text-shadow: rgba(255, 69, 0, 0.8) -2px -1px, 2px 1px 1px #000;
 }
+@media (max-width: 480px) {
+  .site-logo {
+    font-size: 2em;
+  }
+}
 
 .search-container {
   display: flex;
   align-items: center;
 }
+@media (max-width: 768px) {
+  .search-container {
+    margin-top: 15px;
+    justify-content: space-between;
+  }
+}
 
 .search-box {
   display: flex;
   align-items: center;
+}
+@media (max-width: 480px) {
+  .search-box {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .search-input {
@@ -34,6 +57,21 @@
 }
 .search-input:hover {
   width: 400px;
+}
+@media (max-width: 1000px) {
+  .search-input:hover {
+    width: 300px;
+  }
+}
+@media (max-width: 800px) {
+  .search-input:hover {
+    width: 220px;
+  }
+}
+@media (max-width: 480px) {
+  .search-input {
+    margin-bottom: 10px;
+  }
 }
 
 .search-button {
@@ -50,14 +88,29 @@
   background-color: #ff5700;
   color: white;
 }
+@media (max-width: 480px) {
+  .search-button {
+    margin-left: 0;
+  }
+}
 
 .navigation-buttons {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px; /* Space between buttons */
-  margin-top: 30px;
-  margin-left: -20px;
   font-weight: bolder;
+  justify-content: center; /* Centering the buttons */
+  width: 100%; /* Make sure it takes full width for centering */
+}
+@media (max-width: 768px) {
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0;
+    margin-top: 20px; /* Adjust margin for better spacing */
+  }
 }
 
 /* Styles for specific buttons */
@@ -77,6 +130,15 @@
 .navigation-buttons .btn-about:hover {
   color: #a63a00;
 }
+@media (max-width: 768px) {
+  .navigation-buttons .btn-teachers,
+  .navigation-buttons .btn-statistics,
+  .navigation-buttons .btn-favorites,
+  .navigation-buttons .btn-about {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+}
 
 .btn-add-teacher {
   font-size: 1.2em;
@@ -91,6 +153,13 @@
 .btn-add-teacher:hover {
   background-color: #ff5700;
   color: white;
+}
+@media (max-width: 768px) {
+  .btn-add-teacher {
+    margin-left: 0;
+    font-size: 1em;
+    padding: 8px 16px;
+  }
 }
 
 .top-teacher-filter {
@@ -378,14 +447,28 @@
 
 /* General container setup */
 body {
-  margin: 0 auto;
-  max-width: 1200px;
+  margin: 0;
   font-family: "Roboto", sans-serif;
+}
+
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .container {
   margin: 0 auto;
   max-width: 1000px;
+}
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+  }
+}
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+  }
 }
 
 .section {
@@ -398,12 +481,35 @@ body {
   max-width: 90%;
   width: 100%;
 }
+@media (max-width: 768px) {
+  .section {
+    margin: 30px auto 0;
+  }
+}
+@media (max-width: 480px) {
+  .section {
+    margin: 20px auto 0;
+    padding-top: 30px;
+  }
+}
 
 .section-title {
   text-align: center;
   margin-bottom: 40px;
   font-size: 32px;
   font-weight: bold;
+}
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
 }
 
 .section::before {
@@ -415,6 +521,18 @@ body {
   position: absolute;
   top: 0;
   left: 27.5%;
+}
+@media (max-width: 768px) {
+  .section::before {
+    width: 50%;
+    left: 25%;
+  }
+}
+@media (max-width: 480px) {
+  .section::before {
+    width: 60%;
+    left: 20%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

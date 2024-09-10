@@ -1,28 +1,49 @@
 @import "global";
-.header {
+
+.search-and-logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .site-logo {
   font-size: 3em;
   color: #fff;
   text-shadow: rgba(255, 69, 0, 0.8) -1px -1px , 1px 1px 1px #000;
+
   &:hover {
     text-shadow: rgba(255, 69, 0, 0.8) -2px -1px , 2px 1px 1px #000;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2em;
   }
 }
 
 .search-container {
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    justify-content: space-between;
+  }
 }
 
 .search-box {
   display: flex;
   align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .search-input {
@@ -32,12 +53,28 @@
   font-size: 15px;
   flex: 1;
   transition: width 0.3s ease;
+
   &:hover {
     width: 400px;
+  }
+
+  @media (max-width: 1000px) {
+    &:hover {
+      width: 300px;
+    }
+  }
+  @media (max-width: 800px) {
+    &:hover {
+      width: 220px;
+    }
+  }
+  @media (max-width: 480px) {
+    margin-bottom: 10px;
   }
 }
 
 .search-button {
+
   padding: 10px 20px;
   margin-left: 20px;
   font-size: 1.2em;
@@ -46,19 +83,33 @@
   border: 1px solid $base-color;
   background-color: white;
   box-sizing: border-box;
+
   &:hover {
     background-color: $base-color;
     color: white;
   }
+
+  @media (max-width: 480px) {
+    margin-left: 0;
+  }
 }
 
 .navigation-buttons {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px; /* Space between buttons */
-  margin-top: 30px;
-  margin-left: -20px;
   font-weight: bolder;
+  justify-content: center; /* Centering the buttons */
+  width: 100%; /* Make sure it takes full width for centering */
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0;
+    margin-top: 20px; /* Adjust margin for better spacing */
+  }
 }
 
 /* Styles for specific buttons */
@@ -71,8 +122,14 @@
   color: $base-color;
   border: none;
   background: none;
+
   &:hover {
     color: #a63a00;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+    padding: 8px 16px;
   }
 }
 
@@ -85,8 +142,15 @@
   box-sizing: border-box;
   margin-left: auto;
   cursor: pointer;
+
   &:hover {
     background-color: $base-color;
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    font-size: 1em;
+    padding: 8px 16px;
   }
 }
