@@ -57,36 +57,6 @@
   }
 }
 
-/* Update media queries and add styles for hidden cards */
-@media (max-width: 1000px) {
-  .section .carousel-inner > :nth-child(n + 4) {
-    display: none; // Hide cards exceeding section width
-  }
-
-  .section .carousel-inner {
-    justify-content: space-around; // Adjust remaining cards
-  }
-}
-@media (max-width: 768px) {
-  .section .carousel-inner > :nth-child(n + 3) {
-    display: none; // Hide cards exceeding section width
-  }
-
-  .section .carousel-inner {
-    justify-content: space-around; // Adjust remaining cards
-  }
-}
-@media (max-width: 500px) {
-  .section .carousel-inner > :nth-child(n + 2) {
-    display: none; // Hide cards exceeding section width
-  }
-
-  .section .carousel-inner {
-    justify-content: space-around; // Adjust remaining cards
-  }
-}
-
-
 .section .carousel-inner > :first-child {
   margin-left: 6px;
 }
