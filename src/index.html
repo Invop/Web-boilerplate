@@ -37,7 +37,7 @@
                 <button class="btn-statistics" type="button">Statistics</button>
                 <button class="btn-favorites" type="button">Favorites</button>
                 <button class="btn-about" type="button">About</button>
-                <button class="btn-add-teacher" type="button">Add teacher</button>
+                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
             </nav>
         </div>
     </header>
@@ -88,7 +88,7 @@
         </div>
 
         <div class="teacher-grid">
-            <div class="teacher-card">
+            <div class="teacher-card" onclick="showPopup('teacher-info-popup', 'overlay-teacher-info-popup')">
                 <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
                 <div class="teacher-info">
                     <div class="teacher-info-container">
@@ -292,12 +292,44 @@
 
     <section class="section">
         <h2 class="section-title">Favorites</h2>
-        <div class="carousel">
-            <div class="carousel-control left">
-                <img src="images/arrow_default.png" alt="Left arrow" class="arrow-default">
-                <img src="images/arrow_hover.png" alt="Left arrow hover" class="arrow-hover">
+        <div class="favorites">
+            <div class="favorites-control left">
+                <img src="images/arrow_left.png" alt="Left arrow" class="arrow">
             </div>
-            <div class="carousel-inner">
+            <div class="favorites-inner">
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
                 <div class="teacher-card">
                     <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
                     <div class="teacher-info">
@@ -354,9 +386,8 @@
                     </div>
                 </div>
             </div>
-            <div class="carousel-control right">
-                <img src="images/arrow_default.png" alt="Right arrow" class="arrow-default">
-                <img src="images/arrow_hover.png" alt="Right arrow hover" class="arrow-hover">
+            <div class="favorites-control right">
+                <img src="images/arrow_right.png" alt="Right arrow" class="arrow">
             </div>
         </div>
     </section>
@@ -385,18 +416,128 @@
 
 
     <footer>
-        <div class="container">
+        <div class="container" style="margin-bottom: 40px;">
             <nav class="navigation-buttons">
                 <button class="btn-teachers" type="button">Teachers</button>
                 <button class="btn-statistics" type="button">Statistics</button>
                 <button class="btn-favorites" type="button">Favorites</button>
                 <button class="btn-about" type="button">About</button>
-                <button class="btn-add-teacher" type="button">Add teacher</button>
+                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
             </nav>
         </div>
     </footer>
 </div>
-<script type="text/javascript" src="../build/app.js"></script>
 
+
+<div class="overlay" id="overlay-teacher-info-popup" onclick="hidePopup('teacher-info-popup', 'overlay-teacher-info-popup')"></div>
+<div class="popup teacher-info-popup" id="teacher-info-popup">
+    <div class="header-popup">
+        <h1>Teacher Info</h1>
+        <button class="close-btn-popup" onclick="hidePopup('teacher-info-popup', 'overlay-teacher-info-popup')">&times;</button>
+    </div>
+    <div class="content-popup">
+        <img src="https://via.placeholder.com/100" alt="Teacher Avatar" class="avatar">
+        <div class="info-popup">
+            <h2>John Doe</h2>
+            <span class="star-icon">★</span>
+            <div class="details-popup">
+                <p>Mathematics</p>
+                <p>New York, USA</p>
+                <p>40, Male</p>
+                <p>john.doe@example.com</p>
+                <p>+1234567890</p>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+    <a href="#" class="toggle-map">Toggle map</a>
+</div>
+
+<div class="overlay" id="overlay-add-teacher-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')"></div>
+<div class="popup add-teacher-popup" id="add-teacher-popup">
+    <div class="header-popup">
+        <h1>Add Teacher</h1>
+        <button class="close-btn-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')">&times;</button>
+    </div>
+    <div class="content-popup">
+        <form id="add-teacher-form">
+            <div class="form-group">
+                <label for="teacher-name">Name:</label>
+                <input type="text" id="teacher-name" name="teacher-name" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-speciality">Speciality:</label>
+                <select id="teacher-speciality" name="teacher-speciality" required>
+                    <option value="">Select Speciality</option>
+                    <option value="math">Math</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                    <option value="language">Language</option>
+                </select>
+            </div>
+            <div class="form-group two-fields">
+                <div>
+                    <label for="teacher-country">Country:</label>
+                    <select id="teacher-country" name="teacher-country" required>
+                        <option value="">Select Country</option>
+                        <option value="usa">United States</option>
+                        <option value="canada">Canada</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="germany">Germany</option>
+                        <option value="france">France</option>
+                        <option value="australia">Australia</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="teacher-city">City:</label>
+                    <input type="text" id="teacher-city" name="teacher-city" required>
+                </div>
+            </div>
+            <div class="form-group two-fields">
+                <div>
+                    <label for="teacher-email">Email:</label>
+                    <input type="email" id="teacher-email" name="teacher-email" required>
+                </div>
+                <div>
+                    <label for="teacher-phone">Phone:</label>
+                    <input type="tel" id="teacher-phone" name="teacher-phone" required>
+                </div>
+            </div>
+            <div class="form-group small-fields column">
+                <label for="teacher-dob">Date of Birth:</label>
+                <input type="date" id="teacher-dob" name="teacher-dob" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-sex">Sex:</label>
+                <select id="teacher-sex" name="teacher-sex" required>
+                    <option value="" disabled selected>Select sex</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            <div class="form-group small-fields">
+                <label for="teacher-bgcolor">Background Color:</label>
+                <img src="images/colors.png" alt="colors" style="height: 15px; width: 15px; margin-right: 10px;">
+                <input type="color" id="teacher-bgcolor" name="teacher-bgcolor" style="max-width: 40px;" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-notes">Notes (optional):</label>
+                <textarea id="teacher-notes" name="teacher-notes"></textarea>
+            </div>
+            <button class="submit-btn" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+<script src="./js/app.js"></script>
+<script type="text/javascript" src="../build/app.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 @import "global";
 
-
 .top-teacher-filter {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   label {
     color: #a19fa3;
@@ -14,26 +14,75 @@
       color: #000; // Change label color to black on hover
     }
   }
-}
 
-.top-teacher-filter select {
-  font-size: 15px;
-  padding: 10px;
-}
-.divider {
-  display: inline-block;
-  width: 1px;
-  height: 20px;
-  position: relative;
-  margin: 0 15px;
-  background: repeating-linear-gradient(
-                  to bottom,
-                  transparent,
-                  transparent 1px,
-                  black 1px,
-                  black 2px
-  );
+  select {
+    font-size: 15px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
 
+  input[type="checkbox"] {
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+  .divider {
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    position: relative;
+    margin: 0 15px;
+    background: repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 1px,
+                    black 1px,
+                    black 2px
+    );
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    label,
+    select,
+    input {
+      margin-right: 0;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input[type="checkbox"] + label {
+      margin-top: 5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    label,
+    select,
+    input {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    input[type="checkbox"] + label {
+      margin-top: 5px;
+    }
+  }
 }
 
 .teacher-grid {

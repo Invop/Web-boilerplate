@@ -63,7 +63,12 @@
       width: 300px;
     }
   }
-  @media (max-width: 800px) {
+  @media (max-width: 880px) {
+    &:hover {
+      width: 260px;
+    }
+  }
+  @media (max-width: 810px) {
     &:hover {
       width: 220px;
     }

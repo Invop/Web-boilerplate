@@ -1,62 +1,39 @@
-.section {
+.favorites {
+  display: flex;
+  align-items: center;
   position: relative;
+  width: 100%;
 
-  .carousel {
+  .favorites-control {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;  // Ensure arrows are above the cards
+
+    .arrow-default {
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  .favorites-inner {
+    margin-left: 36px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1000px;
-
-    &-inner {
-      display: flex;
-      overflow-x: hidden;
-      gap: 40px;
-
-    }
-
-    &-control {
-      cursor: pointer;
-      width: 20px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-      &.left{
-        margin-right: 10px;
-      }
-      &.right {
-        margin-left: 30px;
-      }
-      &.right img {
-
-        transform: rotate(180deg);
-      }
-
-      .arrow-hover {
-        display: none;
-      }
-
-      &:hover {
-        .arrow-default {
-          display: none;
-        }
-        .arrow-hover {
-          display: block;
-        }
-      }
+    flex-direction: row;
+    overflow: hidden;
+    flex-grow: 1;
+    .teacher-card {
+      flex: 0 0 auto;
+      margin-right: 20px;
     }
   }
 
-  .teacher-card {
-    flex: 0 0 auto;
-  }
 }
 
-.section .carousel-inner > :first-child {
-  margin-left: 6px;
+.arrow {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+    transition: 0.2s;
+  }
 }
