@@ -1,22 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <head itemscope itemtype="http://schema.org/WebSite">
+<head itemscope itemtype="http://schema.org/WebSite">
 
-      <meta charset="utf-8">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <meta name="msapplication-tap-highlight" content="no">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Project</title>
+    <title>Project</title>
 
-      <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="./css/app.css">
+</head>
 
-   </head>
+<body itemscope itemtype="http://schema.org/WebPage">
+<div class="wrapper">
+    <header>
+        <div class="container">
+            <div class="search-and-logo">
+                <div class="site-logo">Teachinder</div>
+                <div class="search-container">
+                    <div class="search-box">
+                        <label>
+                            <input class="search-input"
+                                   type="text"
+                                   placeholder="Name, note or age to search">
+                        </label>
+                        <button class="search-button"
+                                type="submit">Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nav class="navigation-buttons">
+                <button class="btn-teachers" type="button">Teachers</button>
+                <button class="btn-statistics" type="button">Statistics</button>
+                <button class="btn-favorites" type="button">Favorites</button>
+                <button class="btn-about" type="button">About</button>
+                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
+            </nav>
+        </div>
+    </header>
+    <section class="section">
+        <h2 class="section-title">Top Teachers</h2>
+        <div class="top-teacher-filter">
+            <label for="age-filter">Age</label>
+            <select id="age-filter" name="age-filter">
+                <option value="all">All</option>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-45">36-45</option>
+                <option value="46+">46+</option>
+            </select>
 
-   <body itemscope itemtype="http://schema.org/WebPage">
+            <span class="divider"></span>
 
-      <script type="text/javascript" src="../build/app.js"></script>
-      
-  </body>
+            <label for="region-filter">Region</label>
+            <select id="region-filter" name="region-filter">
+                <option value="all">All</option>
+                <option value="north">North</option>
+                <option value="south">South</option>
+                <option value="east">East</option>
+                <option value="west">West</option>
+            </select>
+
+            <span class="divider"></span>
+
+            <label for="sex-filter">Sex</label>
+            <select id="sex-filter" name="sex-filter">
+                <option value="all">All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <span class="divider"></span>
+
+
+            <input type="checkbox" id="photo-filter" name="photo-filter">
+            <label for="photo-filter">Only with photo</label>
+
+            <span class="divider"></span>
+
+
+            <input type="checkbox" id="favorites-filter" name="favorites-filter">
+            <label for="favorites-filter">Only Favorites</label>
+        </div>
+
+        <div class="teacher-grid">
+            <div class="teacher-card" onclick="showPopup('teacher-info-popup', 'overlay-teacher-info-popup')">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <span class="star-icon">★</span>
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <span class="star-icon">★</span>
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+
+
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+            <div class="teacher-card">
+                <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                <div class="teacher-info">
+                    <div class="teacher-info-container">
+                        <p class="teacher-info-name">John</p>
+                        <p class="teacher-info-last-name">Doe</p>
+                    </div>
+                    <p class="teacher-info-specialization">Mathematics</p>
+                    <p class="teacher-info-geo">Ukraine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Statistics</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Speciality</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Nationality</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td data-label="Name">John Doe</td>
+                    <td data-label="Speciality">Software Engineer</td>
+                    <td data-label="Age">30</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="Nationality">American</td>
+                </tr>
+                <tr>
+                    <td data-label="Name">John Doe</td>
+                    <td data-label="Speciality">Software Engineer</td>
+                    <td data-label="Age">30</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="Nationality">American</td>
+                </tr>
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+            <div id="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <span class="dots">...</span>
+                <a href="#" class="page-link last">Last</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Favorites</h2>
+        <div class="favorites">
+            <div class="favorites-control left">
+                <img src="images/arrow_left.png" alt="Left arrow" class="arrow">
+            </div>
+            <div class="favorites-inner">
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="images/teach1.jpg" alt="Teacher Photo" class="teacher-image">
+                    <div class="teacher-info">
+                        <div class="teacher-info-container">
+                            <p class="teacher-info-name">John</p>
+                            <p class="teacher-info-last-name">Doe</p>
+                        </div>
+                        <p class="teacher-info-specialization">Mathematics</p>
+                        <p class="teacher-info-geo">Ukraine</p>
+                    </div>
+                </div>
+            </div>
+            <div class="favorites-control right">
+                <img src="images/arrow_right.png" alt="Right arrow" class="arrow">
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="about-text">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ut efficitur ipsum sit amet ligula hendrerit aliquet. Ut
+                sapien velit, ultricies in velit et, imperdiet vehicula
+                odio. Praesent rhoncus ex quis velit dictum dignissim ac
+                eu purus. Suspendisse id turpis metus. Donec accumsan,
+                metus in finibus tempor, nibh risus semper dui, sit amet
+                tempus nunc leo nec ipsum. Morbi posuere tortor et
+                vulputate ullamcorper. Quisque maximus ex at suscipit
+                pulvinar.
+            </p>
+            <br/>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ut efficitur ipsum sit amet ligula hendrerit aliquet.
+            </p>
+            <br/>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container" style="margin-bottom: 40px;">
+            <nav class="navigation-buttons">
+                <button class="btn-teachers" type="button">Teachers</button>
+                <button class="btn-statistics" type="button">Statistics</button>
+                <button class="btn-favorites" type="button">Favorites</button>
+                <button class="btn-about" type="button">About</button>
+                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
+            </nav>
+        </div>
+    </footer>
+</div>
+
+
+<div class="overlay" id="overlay-teacher-info-popup" onclick="hidePopup('teacher-info-popup', 'overlay-teacher-info-popup')"></div>
+<div class="popup teacher-info-popup" id="teacher-info-popup">
+    <div class="header-popup">
+        <h1>Teacher Info</h1>
+        <button class="close-btn-popup" onclick="hidePopup('teacher-info-popup', 'overlay-teacher-info-popup')">&times;</button>
+    </div>
+    <div class="content-popup">
+        <img src="https://via.placeholder.com/100" alt="Teacher Avatar" class="avatar">
+        <div class="info-popup">
+            <h2>John Doe</h2>
+            <span class="star-icon">★</span>
+            <div class="details-popup">
+                <p>Mathematics</p>
+                <p>New York, USA</p>
+                <p>40, Male</p>
+                <p>john.doe@example.com</p>
+                <p>+1234567890</p>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+    <a href="#" class="toggle-map">Toggle map</a>
+</div>
+
+<div class="overlay" id="overlay-add-teacher-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')"></div>
+<div class="popup add-teacher-popup" id="add-teacher-popup">
+    <div class="header-popup">
+        <h1>Add Teacher</h1>
+        <button class="close-btn-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')">&times;</button>
+    </div>
+    <div class="content-popup">
+        <form id="add-teacher-form">
+            <div class="form-group">
+                <label for="teacher-name">Name:</label>
+                <input type="text" id="teacher-name" name="teacher-name" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-speciality">Speciality:</label>
+                <select id="teacher-speciality" name="teacher-speciality" required>
+                    <option value="">Select Speciality</option>
+                    <option value="math">Math</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                    <option value="language">Language</option>
+                </select>
+            </div>
+            <div class="form-group two-fields">
+                <div>
+                    <label for="teacher-country">Country:</label>
+                    <select id="teacher-country" name="teacher-country" required>
+                        <option value="">Select Country</option>
+                        <option value="usa">United States</option>
+                        <option value="canada">Canada</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="germany">Germany</option>
+                        <option value="france">France</option>
+                        <option value="australia">Australia</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="teacher-city">City:</label>
+                    <input type="text" id="teacher-city" name="teacher-city" required>
+                </div>
+            </div>
+            <div class="form-group two-fields">
+                <div>
+                    <label for="teacher-email">Email:</label>
+                    <input type="email" id="teacher-email" name="teacher-email" required>
+                </div>
+                <div>
+                    <label for="teacher-phone">Phone:</label>
+                    <input type="tel" id="teacher-phone" name="teacher-phone" required>
+                </div>
+            </div>
+            <div class="form-group small-fields column">
+                <label for="teacher-dob">Date of Birth:</label>
+                <input type="date" id="teacher-dob" name="teacher-dob" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-sex">Sex:</label>
+                <select id="teacher-sex" name="teacher-sex" required>
+                    <option value="" disabled selected>Select sex</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            <div class="form-group small-fields">
+                <label for="teacher-bgcolor">Background Color:</label>
+                <img src="images/colors.png" alt="colors" style="height: 15px; width: 15px; margin-right: 10px;">
+                <input type="color" id="teacher-bgcolor" name="teacher-bgcolor" style="max-width: 40px;" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher-notes">Notes (optional):</label>
+                <textarea id="teacher-notes" name="teacher-notes"></textarea>
+            </div>
+            <button class="submit-btn" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+<script src="./js/app.js"></script>
+<script type="text/javascript" src="../build/app.js"></script>
+</body>
 </html>

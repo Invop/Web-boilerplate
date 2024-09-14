@@ -1,0 +1,167 @@
+@import "global";
+
+.top-teacher-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  label {
+    color: #a19fa3;
+    font-size: 14px;
+    margin-right: 10px;
+
+    &:hover {
+      color: #000; // Change label color to black on hover
+    }
+  }
+
+  select {
+    font-size: 15px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+  .divider {
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    position: relative;
+    margin: 0 15px;
+    background: repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 1px,
+                    black 1px,
+                    black 2px
+    );
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    label,
+    select,
+    input {
+      margin-right: 0;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input[type="checkbox"] + label {
+      margin-top: 5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    label,
+    select,
+    input {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    input[type="checkbox"] + label {
+      margin-top: 5px;
+    }
+  }
+}
+
+.teacher-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  gap: 1.5rem;
+}
+
+.teacher-card .star-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 50px;
+  color: gold;
+  z-index: 10;
+}
+.teacher-card {
+  position: relative;
+  width: 150px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  box-sizing: border-box;
+  &:hover .teacher-image {
+    transform: scale(1.1);
+    border-color: darken($base-color, 20%);
+  }
+}
+
+.teacher-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid $base-color;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.teacher-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  justify-content: space-around;
+}
+
+.teacher-info-name,
+.teacher-info-last-name,
+.teacher-info-specialization,
+.teacher-info-geo {
+  margin: 0;
+}
+.teacher-info-name,
+.teacher-info-last-name{
+  font-size: 20px;
+  font-weight: bold;
+}
+.teacher-info-container{
+  margin-bottom: 10px;
+}
+
+.teacher-info-specialization {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6a6a6a;
+  margin-bottom: 10px;
+}
+
+.teacher-info-geo{
+  font-size: 12px;
+  font-weight: lighter;
+}
