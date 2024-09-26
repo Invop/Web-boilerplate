@@ -1,5 +1,6 @@
 import { FormattedUser } from './models/FormattedUser';
 import { updateTeacherGrid, validFormattedUsers,favoritesSection } from './app';
+import {setUsersList} from "./generateTable";
 
 export function generateTeacherPopup(user: FormattedUser): void {
     const existingPopup = document.getElementById('teacher-info-popup');
@@ -64,6 +65,55 @@ export function generateTeacherPopup(user: FormattedUser): void {
 
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
+
+document.getElementById('add-teacher-form')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const newTeacher = createNewUser();
+    if (newTeacher) {
+        validFormattedUsers.push(newTeacher);
+        updateTeacherGrid(validFormattedUsers);
+        setUsersList(validFormattedUsers);
+        hidePopup('add-teacher-popup', 'overlay-add-teacher-popup');
+    } else {
+        alert('Please fill all required fields correctly.');
+    }
+});
+
+function createNewUser(): FormattedUser | null {
+    const form = document.getElementById('add-teacher-form') as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const gender = formData.get('teacher-sex') as string;
+
+    if (!gender || !(gender === 'male' || gender === 'female')) {
+        return null;
+    }
+
+    return {
+        id: String(validFormattedUsers.length + 1),
+        favorite: false,
+        course: formData.get('teacher-speciality') as string,
+        bg_color: formData.get('teacher-bgcolor') as string,
+        note: formData.get('teacher-notes') as string || '',
+        gender: gender.charAt(0).toUpperCase() + gender.slice(1) as 'Male' | 'Female',
+        full_name: formData.get('teacher-name') as string,
+        city: formData.get('teacher-city') as string,
+        country: (formData.get('teacher-country') as string).toLowerCase(),
+        email: formData.get('teacher-email') as string,
+        age: calculateAge(new Date(formData.get('teacher-dob') as string)),
+        phone: formData.get('teacher-phone') as string,
+    };
+}
+
+function calculateAge(birthday: Date): number {
+    const ageDifMs = Date.now() - birthday.getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+
+
+
 
 function showPopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;

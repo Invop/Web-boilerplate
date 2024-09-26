@@ -1,17 +1,17 @@
 import '../css/app.css';
-import { randomUserMock, additionalUsers } from './FE4U-Lab2-mock';
-import { generateUsers } from './formatUsers';
-import { User } from './models/User';
-import { FormattedUser } from './models/FormattedUser';
-import { ValidationResult } from './models/ValidationResult';
-import { generateTeacherCard } from "./generateTeacherCard";
-import { filterUsers } from "./filterUsers";
-import { FilterParams, Range } from './models/FilterParams';
-import { generateTeacherPopup } from './generateTeacherPopup';
-import { validateFormattedUser } from './validateFormattedUser';
-import { generateFavoritesSection } from "./generateFavoritesSection";
-import { addSortEventListeners, setUsersList } from './generateTable';
-import { findUser } from './findUser';
+import {additionalUsers, randomUserMock} from './FE4U-Lab2-mock';
+import {generateUsers} from './formatUsers';
+import {User} from './models/User';
+import {FormattedUser} from './models/FormattedUser';
+import {ValidationResult} from './models/ValidationResult';
+import {generateTeacherCard} from "./generateTeacherCard";
+import {filterUsers} from "./filterUsers";
+import {FilterParams, Range} from './models/FilterParams';
+import {generateTeacherPopup} from './generateTeacherPopup';
+import {validateFormattedUser} from './validateFormattedUser';
+import {generateFavoritesSection} from "./generateFavoritesSection";
+import {addSortEventListeners, setUsersList} from './generateTable';
+import {findUser} from './findUser';
 import {SearchParams} from "./models/SearchParams";
 
 const users: User[] = randomUserMock as User[];
@@ -111,6 +111,9 @@ regionFilter.addEventListener('change', onFilterChange);
 sexFilter.addEventListener('change', onFilterChange);
 photoFilter.addEventListener('change', onFilterChange);
 favoritesFilter.addEventListener('change', onFilterChange);
+
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   populateRegionFilter();

@@ -1,4 +1,4 @@
-import {filterUsers} from "./task3";
+/*import
 import {FormattedUser} from "../models/FormattedUser";
 import {FilterParams} from "../models/FilterParams";
 
@@ -7,3 +7,4 @@ export function calculatePercentage(users: FormattedUser[], params: FilterParams
     matchingUsers = filterUsers(users, params);
     return (matchingUsers.length / users.length) * 100;
 }
+*/
