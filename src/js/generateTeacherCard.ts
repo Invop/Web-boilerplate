@@ -5,6 +5,13 @@ export function generateTeacherCard(user: FormattedUser): HTMLElement {
     const card = document.createElement('div');
     card.className = 'teacher-card';
 
+    if (user.favorite){
+        const starIcon = document.createElement('span');
+        starIcon.className = 'star-icon';
+        starIcon.innerHTML = '★';
+        card.appendChild(starIcon);
+    }
+
     const img = document.createElement('img');
     img.src = user.picture_large ?? '';
     img.alt = `${user.full_name} Photo`;

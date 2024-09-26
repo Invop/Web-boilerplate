@@ -1,7 +1,7 @@
 import { FormattedUser } from './models/FormattedUser';
+import { updateTeacherGrid, validFormattedUsers } from './app';
 
 export function generateTeacherPopup(user: FormattedUser): void {
-    // Remove existing popups if any
     const existingPopup = document.getElementById('teacher-info-popup');
     if (existingPopup) {
         existingPopup.remove();
@@ -11,16 +11,18 @@ export function generateTeacherPopup(user: FormattedUser): void {
         existingOverlay.remove();
     }
 
-    // Create overlay
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
     overlay.id = 'overlay-teacher-info-popup';
     overlay.onclick = () => hidePopup('teacher-info-popup', 'overlay-teacher-info-popup');
 
-    // Create popup
     const popup = document.createElement('div');
     popup.className = 'popup teacher-info-popup';
     popup.id = 'teacher-info-popup';
+
+    const starIconHTML = user.favorite
+        ? '<span class="star-icon" id="star-icon" style="color: gold; cursor: pointer;">★</span>'
+        : '<span class="star-icon" id="star-icon" style="cursor: pointer;">★</span>';
 
     popup.innerHTML = `
         <div class="header-popup">
@@ -31,7 +33,7 @@ export function generateTeacherPopup(user: FormattedUser): void {
             <img src="${user.picture_large ?? 'https://via.placeholder.com/100'}" alt="Teacher Avatar" class="avatar">
             <div class="info-popup">
                 <h2>${user.full_name}</h2>
-                <span class="star-icon">★</span>
+                ${starIconHTML}
                 <div class="details-popup">
                     <p>${user.course}</p>
                     <p>${user.city}, ${user.country}</p>
@@ -47,11 +49,18 @@ export function generateTeacherPopup(user: FormattedUser): void {
         <a href="#" class="toggle-map">Toggle map</a>
     `;
 
-    // Append to body
     document.body.appendChild(overlay);
     document.body.appendChild(popup);
 
-    // Show popup
+    const starIcon = document.getElementById('star-icon');
+    if (starIcon) {
+        starIcon.addEventListener('click', () => {
+            user.favorite = !user.favorite;
+            updateTeacherGrid(validFormattedUsers);
+            generateTeacherPopup(user);
+        });
+    }
+
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
 
@@ -81,6 +90,5 @@ function hidePopup(popupId: string, overlayId: string): void {
     overlay.style.display = 'none';
 }
 
-// Attach functions to window for external access
 (window as any).showPopup = showPopup;
 (window as any).hidePopup = hidePopup;
