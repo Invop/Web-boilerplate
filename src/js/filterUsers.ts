@@ -1,9 +1,10 @@
-import {FormattedUser} from "../models/FormattedUser";
-import {FilterParams} from "../models/FilterParams";
+// filterUsers function
+import { FormattedUser } from "./models/FormattedUser";
+import { FilterParams } from "./models/FilterParams";
 
 export function filterUsers(users: FormattedUser[], params: FilterParams): FormattedUser[] {
     return users.filter(user => {
-        if (params.country && user.country !== params.country) {
+        if (params.country && user.country.toLowerCase() !== params.country.toLowerCase()) {
             return false;
         }
 
@@ -21,6 +22,13 @@ export function filterUsers(users: FormattedUser[], params: FilterParams): Forma
 
         if (params.favorite !== undefined && user.favorite !== params.favorite) {
             return false;
+        }
+
+        if (params.hasPhoto !== undefined) {
+            const hasPhoto = user.picture_large || user.picture_thumbnail;
+            if (params.hasPhoto && !hasPhoto) {
+                return false;
+            }
         }
 
         return true;

@@ -1,6 +1,6 @@
-// tasks/task4.ts
-import { FormattedUser } from "../models/FormattedUser";
-import { SortParams } from "../models/SortParams";
+
+import { FormattedUser } from "./models/FormattedUser";
+import { SortParams } from "./models/SortParams";
 
 export function sortUsers(users: FormattedUser[], params: SortParams): FormattedUser[] {
     const { key, order } = params;

@@ -3,6 +3,7 @@ export interface FilterParams {
     ageRange?: Range<number>;
     gender?: 'Male' | 'Female';
     favorite?: boolean;
+    hasPhoto?: boolean;
 }
 export interface Range<T> {
     min?: T;
