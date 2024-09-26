@@ -10,7 +10,9 @@ import { FilterParams, Range } from './models/FilterParams';
 import { generateTeacherPopup } from './generateTeacherPopup';
 import { validateFormattedUser } from './validateFormattedUser';
 import { generateFavoritesSection } from "./generateFavoritesSection";
-import {addSortEventListeners, setUsersList} from './generateTable';
+import { addSortEventListeners, setUsersList } from './generateTable';
+import { findUser } from './findUser';
+import {SearchParams} from "./models/SearchParams";
 
 const users: User[] = randomUserMock as User[];
 const additionalFormattedUsers: Partial<FormattedUser>[] = additionalUsers as Partial<FormattedUser>[];
@@ -26,6 +28,8 @@ const regionFilter = document.getElementById('region-filter') as HTMLSelectEleme
 const sexFilter = document.getElementById('sex-filter') as HTMLSelectElement;
 const photoFilter = document.getElementById('photo-filter') as HTMLInputElement;
 const favoritesFilter = document.getElementById('favorites-filter') as HTMLInputElement;
+const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+const searchButton = document.querySelector('.search-button') as HTMLButtonElement;
 
 export function updateTeacherGrid(users: FormattedUser[]) {
   const gridContainer = document.querySelector('.teacher-grid');
@@ -79,6 +83,27 @@ function populateRegionFilter() {
   });
 }
 
+function onSearch() {
+  const searchValue = searchInput.value.trim();
+  if (searchValue) {
+    const searchParams: SearchParams[] = [
+      { key: 'full_name', value: searchValue },
+      { key: 'note', value: searchValue },
+      { key: 'age', value: searchValue }
+    ];
+    const foundUsers = findUser(validFormattedUsers, searchParams);
+    updateTeacherGrid(foundUsers);
+  } else {
+    updateTeacherGrid(validFormattedUsers);
+  }
+}
+searchInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    onSearch();
+  }
+});
+searchButton.addEventListener('click', onSearch);
+
 export const favoritesSection = generateFavoritesSection(validFormattedUsers);
 
 ageFilter.addEventListener('change', onFilterChange);
@@ -95,5 +120,4 @@ document.addEventListener('DOMContentLoaded', () => {
   addSortEventListeners();
 
   favoritesSection.updateFavorites();
-
 });

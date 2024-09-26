@@ -1821,7 +1821,7 @@ export const additionalUsers = [
     favorite: true,
     course: null,
     bg_color: '#1f75cb',
-    note: null,
+    note: 'i am a teacher',
   },
   {
     gender: 'male',
