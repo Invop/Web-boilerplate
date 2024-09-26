@@ -48,7 +48,7 @@ const addProperties = (user: Partial<FormattedUser>, index: number): FormattedUs
     return {
         ...user,
         id: user.id || `${index + 1}`,
-        favorite: user.favorite !== undefined ? user.favorite : false,
+        favorite: user.favorite !== undefined ? user.favorite : Math.random() >= 0.5,
         course: user.course || COURSES[Math.floor(Math.random() * COURSES.length)],
         bg_color: user.bg_color || '#ffffff',
         note: user.note || '',

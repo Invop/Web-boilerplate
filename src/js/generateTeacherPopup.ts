@@ -1,5 +1,5 @@
 import { FormattedUser } from './models/FormattedUser';
-import { updateTeacherGrid, validFormattedUsers } from './app';
+import { updateTeacherGrid, validFormattedUsers,favoritesSection } from './app';
 
 export function generateTeacherPopup(user: FormattedUser): void {
     const existingPopup = document.getElementById('teacher-info-popup');
@@ -57,6 +57,7 @@ export function generateTeacherPopup(user: FormattedUser): void {
         starIcon.addEventListener('click', () => {
             user.favorite = !user.favorite;
             updateTeacherGrid(validFormattedUsers);
+            favoritesSection.updateFavorites();
             generateTeacherPopup(user);
         });
     }
