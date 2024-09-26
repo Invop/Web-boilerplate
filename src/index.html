@@ -37,7 +37,9 @@
                 <button class="btn-statistics" type="button">Statistics</button>
                 <button class="btn-favorites" type="button">Favorites</button>
                 <button class="btn-about" type="button">About</button>
-                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
+                <button class="btn-add-teacher" type="button"
+                        onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher
+                </button>
             </nav>
         </div>
     </header>
@@ -96,13 +98,11 @@
         <div class="table-container">
             <table>
                 <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Speciality</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Nationality</th>
-                </tr>
+                    <th id="sortName">Name</th>
+                    <th id="sortSpeciality">Speciality</th>
+                    <th id="sortAge">Age</th>
+                    <th id="sortGender">Gender</th>
+                    <th id="sortNationality">Nationality</th>
                 </thead>
                 <tbody>
                 <tr>
@@ -176,18 +176,22 @@
                 <button class="btn-statistics" type="button">Statistics</button>
                 <button class="btn-favorites" type="button">Favorites</button>
                 <button class="btn-about" type="button">About</button>
-                <button class="btn-add-teacher" type="button" onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher</button>
+                <button class="btn-add-teacher" type="button"
+                        onclick="showPopup('add-teacher-popup', 'overlay-add-teacher-popup')">Add teacher
+                </button>
             </nav>
         </div>
     </footer>
 </div>
 
 
-<div class="overlay" id="overlay-add-teacher-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')"></div>
+<div class="overlay" id="overlay-add-teacher-popup"
+     onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')"></div>
 <div class="popup add-teacher-popup" id="add-teacher-popup">
     <div class="header-popup">
         <h1>Add Teacher</h1>
-        <button class="close-btn-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')">&times;</button>
+        <button class="close-btn-popup" onclick="hidePopup('add-teacher-popup', 'overlay-add-teacher-popup')">&times;
+        </button>
     </div>
     <div class="content-popup">
         <form id="add-teacher-form">

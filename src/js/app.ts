@@ -9,7 +9,8 @@ import { filterUsers } from "./filterUsers";
 import { FilterParams, Range } from './models/FilterParams';
 import { generateTeacherPopup } from './generateTeacherPopup';
 import { validateFormattedUser } from './validateFormattedUser';
-import {generateFavoritesSection} from "./generateFavoritesSection";
+import { generateFavoritesSection } from "./generateFavoritesSection";
+import {addSortEventListeners, setUsersList} from './generateTable';
 
 const users: User[] = randomUserMock as User[];
 const additionalFormattedUsers: Partial<FormattedUser>[] = additionalUsers as Partial<FormattedUser>[];
@@ -25,8 +26,6 @@ const regionFilter = document.getElementById('region-filter') as HTMLSelectEleme
 const sexFilter = document.getElementById('sex-filter') as HTMLSelectElement;
 const photoFilter = document.getElementById('photo-filter') as HTMLInputElement;
 const favoritesFilter = document.getElementById('favorites-filter') as HTMLInputElement;
-
-
 
 export function updateTeacherGrid(users: FormattedUser[]) {
   const gridContainer = document.querySelector('.teacher-grid');
@@ -91,5 +90,10 @@ favoritesFilter.addEventListener('change', onFilterChange);
 document.addEventListener('DOMContentLoaded', () => {
   populateRegionFilter();
   updateTeacherGrid(validFormattedUsers);
+
+  setUsersList(validFormattedUsers);
+  addSortEventListeners();
+
   favoritesSection.updateFavorites();
+
 });
