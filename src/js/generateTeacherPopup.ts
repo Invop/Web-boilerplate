@@ -81,7 +81,7 @@ function showPopup(popupId: string, overlayId: string): void {
     overlay.style.display = 'block';
 }
 
-function hidePopup(popupId: string, overlayId: string): void {
+export function hidePopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;
     const overlay = document.getElementById(overlayId) as HTMLDivElement | null;
 

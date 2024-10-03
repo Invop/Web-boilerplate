@@ -6,7 +6,7 @@ import { User } from './models/User';
 import { getFormatedUsers } from './formatUsers';
 import { FormattedUser } from './models/FormattedUser';
 import { generateTeacherCard } from './generateTeacherCard';
-import { generateTeacherPopup } from "./generateTeacherPopup";
+import { generateTeacherPopup, hidePopup } from "./generateTeacherPopup";
 import { validateFormattedUser } from "./validateFormattedUser";
 import { filterUsers } from "./filterUsers";
 import { FilterParams, Range } from "./models/FilterParams";
@@ -14,13 +14,17 @@ import { findUser } from "./findUser";
 import { SearchParams } from "./models/SearchParams";
 import { setUsersList, addSortEventListeners } from './generateTable';
 import { generateFavoritesSection } from './generateFavoritesSection';
+
 const randomUserAPI = 'https://randomuser.me/api/?results=';
-const batchSize = 50;
+const initialBatchSize = 50;
+const loadMoreBatchSize = 10;
+
 let formattedAndValidUsers: FormattedUser[] = [];
 let countries: Set<string> = new Set();
 let currentFilterParams: FilterParams = {};
 let searchParams: SearchParams[] = [];
 let favoriteSectionUpdater: { updateFavorites: () => void } | null = null;
+
 async function fetchRandomUsers(batchSize: number): Promise<User[]> {
   try {
     const response = await fetch(`${randomUserAPI}${batchSize}`);
@@ -38,7 +42,7 @@ async function fetchRandomUsers(batchSize: number): Promise<User[]> {
   }
 }
 
-async function setFormattedUsers(): Promise<void> {
+async function setFormattedUsers(batchSize: number): Promise<void> {
   const randomUsers = await fetchRandomUsers(batchSize);
   const formattedUsers = getFormatedUsers(randomUsers);
   const validFormattedUsers = formattedUsers.filter(user => {
@@ -125,7 +129,7 @@ function renderTeacherCards(teacherGrid: Element, users: FormattedUser[]): void 
 }
 
 async function loadMoreUsers(): Promise<void> {
-  await setFormattedUsers();
+  await setFormattedUsers(loadMoreBatchSize);
 }
 
 function handleFilterChange(): void {
@@ -163,7 +167,7 @@ function formatGender(value: string): 'Male' | 'Female' | undefined {
 }
 
 async function initialize() {
-  await setFormattedUsers();
+  await setFormattedUsers(initialBatchSize);
 
   const loadMoreButton = document.querySelector('#load-more-btn');
   if (loadMoreButton) {
@@ -199,9 +203,82 @@ async function initialize() {
   if (searchButton) {
     searchButton.addEventListener('click', handleSearch);
   }
+  const addTeacherForm = document.getElementById('add-teacher-form') as HTMLFormElement;
+  if (addTeacherForm) {
+    addTeacherForm.addEventListener('submit', handleAddTeacherForm);
+  }
 
   // Add sort event listeners for the table headers
   addSortEventListeners();
+}
+
+async function handleAddTeacherForm(event: Event): Promise<void> {
+  event.preventDefault();
+  const form = event.target as HTMLFormElement;
+  const formData = new FormData(form);
+
+  const newUser: FormattedUser = {
+    id: generateUniqueId(),
+    favorite: false, // Default to not favorite
+    course: formData.get('teacher-speciality') as string,
+    bg_color: formData.get('teacher-bgcolor') as string,
+    note: formData.get('teacher-notes') as string || '',
+    gender: formData.get('teacher-sex') as 'Male' | 'Female',
+    full_name: formData.get('teacher-name') as string,
+    city: formData.get('teacher-city') as string,
+    country: formData.get('teacher-country') as string,
+    email: formData.get('teacher-email') as string,
+    age: calculateAge(formData.get('teacher-dob') as string),
+    phone: formData.get('teacher-phone') as string,
+    b_day: formData.get('teacher-dob') as string,
+    picture_large: '',
+    picture_thumbnail: '',
+  };
+
+  const validation = validateFormattedUser(newUser);
+  if (!validation.isValid) {
+    alert(`User validation failed: ${validation.errors.join(', ')}`);
+    return;
+  }
+
+  // Send POST request to json-server
+  try {
+    const response = await fetch('http://localhost:3000/teachers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add user to the server');
+    }
+
+    addUser(newUser);
+    hidePopup('add-teacher-popup', 'overlay-add-teacher-popup');
+  } catch (error) {
+    console.error('Error:', error);
+    alert('There was an error adding the user. Please try again.');
+  }
+}
+
+function calculateAge(dob: string): number {
+  const birthDate = new Date(dob);
+  const ageDifMs = Date.now() - birthDate.getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+function generateUniqueId(): string {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function addUser(newUser: FormattedUser): void {
+  formattedAndValidUsers.push(newUser);
+  countries.add(newUser.country);
+  updateCountryFilter();
+  applyFiltersAndRender();
 }
 
 function handleSearch(): void {
