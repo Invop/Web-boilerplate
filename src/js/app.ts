@@ -1,6 +1,5 @@
 import '../css/app.css';
 import { User } from './models/User';
-import axios from 'axios';
 import { getFormatedUsers } from './formatUsers';
 import { FormattedUser } from './models/FormattedUser';
 import { generateTeacherCard } from './generateTeacherCard';
@@ -17,10 +16,11 @@ let currentFilterParams: FilterParams = {};
 
 async function fetchRandomUsers(batchSize: number): Promise<User[]> {
   try {
-    const response = await axios.get(`${randomUserAPI}${batchSize}`);
+    const response = await fetch(`${randomUserAPI}${batchSize}`);
 
-    if (response.status === 200) {
-      return response.data.results as User[];
+    if (response.ok) {
+      const data = await response.json();
+      return data.results as User[];
     } else {
       console.error('Failed to fetch users:', response.status, response.statusText);
       return [];
@@ -30,7 +30,6 @@ async function fetchRandomUsers(batchSize: number): Promise<User[]> {
     return [];
   }
 }
-
 async function setFormattedUsers(): Promise<void> {
   const randomUsers = await fetchRandomUsers(batchSize);
   const formattedUsers = getFormatedUsers(randomUsers);
