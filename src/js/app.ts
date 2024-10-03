@@ -1,126 +1,66 @@
 import '../css/app.css';
-import {additionalUsers, randomUserMock} from './FE4U-Lab2-mock';
-import {generateUsers} from './formatUsers';
-import {User} from './models/User';
-import {FormattedUser} from './models/FormattedUser';
-import {ValidationResult} from './models/ValidationResult';
-import {generateTeacherCard} from "./generateTeacherCard";
-import {filterUsers} from "./filterUsers";
-import {FilterParams, Range} from './models/FilterParams';
-import {generateTeacherPopup} from './generateTeacherPopup';
-import {validateFormattedUser} from './validateFormattedUser';
-import {generateFavoritesSection} from "./generateFavoritesSection";
-import {addSortEventListeners, setUsersList} from './generateTable';
-import {findUser} from './findUser';
-import {SearchParams} from "./models/SearchParams";
+import { User } from './models/User';
+import axios from 'axios';
+import { getFormatedUsers } from './formatUsers';
+import { FormattedUser } from './models/FormattedUser';
+import { generateTeacherCard } from './generateTeacherCard';
+import { generateTeacherPopup } from "./generateTeacherPopup";
 
-const users: User[] = randomUserMock as User[];
-const additionalFormattedUsers: Partial<FormattedUser>[] = additionalUsers as Partial<FormattedUser>[];
-const formattedUsers: FormattedUser[] = generateUsers(users, additionalFormattedUsers);
+const randomUserAPI = 'https://randomuser.me/api/?results=10';
+let formattedUsers: FormattedUser[] = [];
 
-export const validFormattedUsers: FormattedUser[] = formattedUsers.filter((user) => {
-  const validationResult: ValidationResult = validateFormattedUser(user);
-  return validationResult.isValid;
-});
+async function fetchRandomUsers(): Promise<User[]> {
+  try {
+    const response = await axios.get(randomUserAPI);
 
-const ageFilter = document.getElementById('age-filter') as HTMLSelectElement;
-const regionFilter = document.getElementById('region-filter') as HTMLSelectElement;
-const sexFilter = document.getElementById('sex-filter') as HTMLSelectElement;
-const photoFilter = document.getElementById('photo-filter') as HTMLInputElement;
-const favoritesFilter = document.getElementById('favorites-filter') as HTMLInputElement;
-const searchInput = document.querySelector('.search-input') as HTMLInputElement;
-const searchButton = document.querySelector('.search-button') as HTMLButtonElement;
+    if (response.status === 200) {
+      return response.data.results as User[];
+    } else {
+      console.error('Failed to fetch users:', response.status, response.statusText);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+}
 
-export function updateTeacherGrid(users: FormattedUser[]) {
-  const gridContainer = document.querySelector('.teacher-grid');
-  if (gridContainer) {
-    gridContainer.innerHTML = '';
-    users.forEach(user => {
-      const teacherCard = generateTeacherCard(user);
-      teacherCard.addEventListener('click', () => {
-        generateTeacherPopup(user);
-      });
-      gridContainer.appendChild(teacherCard);
+async function setFormattedUsers(): Promise<void> {
+  const randomUsers = await fetchRandomUsers();
+  formattedUsers = getFormatedUsers(randomUsers);
+  createTeacherGrid();
+}
+function createTeacherGrid(): void {
+  const teacherGrid = document.querySelector('.teacher-grid');
+
+  if (teacherGrid) {
+    renderTeacherCards(teacherGrid, formattedUsers);
+
+    teacherGrid.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const card = target.closest('.teacher-card');
+      if (card) {
+        const userIndex = card.getAttribute('data-index');
+        if (userIndex) {
+          const user = formattedUsers[parseInt(userIndex)];
+          generateTeacherPopup(user, formattedUsers);
+        }
+      }
     });
   }
 }
+function renderTeacherCards(teacherGrid: Element, users: FormattedUser[]): void {
+  teacherGrid.innerHTML = '';
 
-function getFilterParams(): FilterParams {
-  const ageRange = ageFilter.value !== 'all' ? ageFilter.value.split('-') : null;
-  const ageRangeObj: Range<number> | undefined = ageRange ? {
-    min: parseInt(ageRange[0], 10),
-    max: ageRange[1] ? parseInt(ageRange[1], 10) : undefined
-  } : undefined;
-
-  return {
-    country: regionFilter.value !== 'all' ? regionFilter.value : undefined,
-    ageRange: ageRangeObj,
-    gender: sexFilter.value !== 'all' ? sexFilter.value.charAt(0).toUpperCase() + sexFilter.value.slice(1) as 'Male' | 'Female' : undefined,
-    favorite: favoritesFilter.checked ? true : undefined,
-    hasPhoto: photoFilter.checked ? true : undefined
-  };
-}
-
-function onFilterChange() {
-  const filterParams = getFilterParams();
-  const filteredUsers = filterUsers(validFormattedUsers, filterParams);
-  updateTeacherGrid(filteredUsers);
-}
-
-function populateRegionFilter() {
-  const regions = new Set<string>();
-  validFormattedUsers.forEach(user => {
-    if (user.country) {
-      regions.add(user.country);
-    }
-  });
-  regionFilter.innerHTML = '<option value="all">All</option>';
-  regions.forEach(region => {
-    const option = document.createElement('option');
-    option.value = region.toLowerCase();
-    option.textContent = region;
-    regionFilter.appendChild(option);
+  users.forEach((user, index) => {
+    const teacherCard = generateTeacherCard(user);
+    teacherCard.setAttribute('data-name', user.id);
+    teacherCard.setAttribute('data-index', index.toString());
+    teacherGrid.appendChild(teacherCard);
   });
 }
 
-function onSearch() {
-  const searchValue = searchInput.value.trim();
-  if (searchValue) {
-    const searchParams: SearchParams[] = [
-      { key: 'full_name', value: searchValue },
-      { key: 'note', value: searchValue },
-      { key: 'age', value: searchValue }
-    ];
-    const foundUsers = findUser(validFormattedUsers, searchParams);
-    updateTeacherGrid(foundUsers);
-  } else {
-    updateTeacherGrid(validFormattedUsers);
-  }
-}
-searchInput.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
-    onSearch();
-  }
-});
-searchButton.addEventListener('click', onSearch);
 
-export const favoritesSection = generateFavoritesSection(validFormattedUsers);
-
-ageFilter.addEventListener('change', onFilterChange);
-regionFilter.addEventListener('change', onFilterChange);
-sexFilter.addEventListener('change', onFilterChange);
-photoFilter.addEventListener('change', onFilterChange);
-favoritesFilter.addEventListener('change', onFilterChange);
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  populateRegionFilter();
-  updateTeacherGrid(validFormattedUsers);
-
-  setUsersList(validFormattedUsers);
-  addSortEventListeners();
-
-  favoritesSection.updateFavorites();
-});
+(async function initialize() {
+  await setFormattedUsers();
+})();

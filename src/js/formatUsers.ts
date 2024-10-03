@@ -59,12 +59,10 @@ const enrichAllUsers = (users: Partial<FormattedUser>[]): FormattedUser[] => {
     return users.map(addProperties);
 };
 
-export const generateUsers = (randomUsers: User[], additionalUsers: Partial<FormattedUser>[]): FormattedUser[] => {
+export const getFormatedUsers = (randomUsers: User[]): FormattedUser[] => {
     try {
         const formattedUsers = formatUsers(randomUsers);
-        const formattedAdditionalUsers = capitalizeGenderAdditionalUsers(additionalUsers);
-        const mergedUsers = combineUsers(formattedUsers, formattedAdditionalUsers);
-        return enrichAllUsers(mergedUsers);
+        return enrichAllUsers(formattedUsers);
     } catch (error) {
         console.error('An error occurred:', error);
         return [];
