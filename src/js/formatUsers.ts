@@ -1,5 +1,5 @@
-import {FormattedUser} from '../models/FormattedUser.js';
-import {User} from '../models/User.js';
+import {FormattedUser} from './models/FormattedUser.js';
+import {User} from './models/User.js';
 
 const capitalize = (s: string) => s ? s[0].toUpperCase() + s.slice(1) : '';
 
@@ -48,7 +48,7 @@ const addProperties = (user: Partial<FormattedUser>, index: number): FormattedUs
     return {
         ...user,
         id: user.id || `${index + 1}`,
-        favorite: user.favorite !== undefined ? user.favorite : false,
+        favorite: user.favorite !== undefined ? user.favorite : Math.random() >= 0.5,
         course: user.course || COURSES[Math.floor(Math.random() * COURSES.length)],
         bg_color: user.bg_color || '#ffffff',
         note: user.note || '',
@@ -59,7 +59,7 @@ const enrichAllUsers = (users: Partial<FormattedUser>[]): FormattedUser[] => {
     return users.map(addProperties);
 };
 
-export const runTask1 = (randomUsers: User[], additionalUsers: Partial<FormattedUser>[]): FormattedUser[] => {
+export const generateUsers = (randomUsers: User[], additionalUsers: Partial<FormattedUser>[]): FormattedUser[] => {
     try {
         const formattedUsers = formatUsers(randomUsers);
         const formattedAdditionalUsers = capitalizeGenderAdditionalUsers(additionalUsers);

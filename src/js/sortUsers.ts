@@ -1,6 +1,5 @@
-// tasks/task4.ts
-import { FormattedUser } from "../models/FormattedUser";
-import { SortParams } from "../models/SortParams";
+import { FormattedUser } from "./models/FormattedUser";
+import { SortParams } from "./models/SortParams";
 
 export function sortUsers(users: FormattedUser[], params: SortParams): FormattedUser[] {
     const { key, order } = params;
@@ -14,7 +13,7 @@ export function sortUsers(users: FormattedUser[], params: SortParams): Formatted
             const dateA = new Date(a.b_day || "").getTime();
             const dateB = new Date(b.b_day || "").getTime();
             comparison = dateA - dateB;
-        } else {
+        } else if (key === 'full_name' || key === 'name' || key === 'course' || key === 'gender' || key === 'nationality' || key === 'country') {
             const valueA = a[key] as string;
             const valueB = b[key] as string;
 
