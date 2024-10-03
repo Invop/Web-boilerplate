@@ -1,3 +1,6 @@
+// app.ts
+
+// Import the necessary functions and types
 import '../css/app.css';
 import { User } from './models/User';
 import { getFormatedUsers } from './formatUsers';
@@ -7,13 +10,17 @@ import { generateTeacherPopup } from "./generateTeacherPopup";
 import { validateFormattedUser } from "./validateFormattedUser";
 import { filterUsers } from "./filterUsers";
 import { FilterParams, Range } from "./models/FilterParams";
-
+import { findUser } from "./findUser";
+import { SearchParams } from "./models/SearchParams";
+import { setUsersList, addSortEventListeners } from './generateTable';
+import { generateFavoritesSection } from './generateFavoritesSection';
 const randomUserAPI = 'https://randomuser.me/api/?results=';
 const batchSize = 50;
 let formattedAndValidUsers: FormattedUser[] = [];
 let countries: Set<string> = new Set();
 let currentFilterParams: FilterParams = {};
-
+let searchParams: SearchParams[] = [];
+let favoriteSectionUpdater: { updateFavorites: () => void } | null = null;
 async function fetchRandomUsers(batchSize: number): Promise<User[]> {
   try {
     const response = await fetch(`${randomUserAPI}${batchSize}`);
@@ -30,6 +37,7 @@ async function fetchRandomUsers(batchSize: number): Promise<User[]> {
     return [];
   }
 }
+
 async function setFormattedUsers(): Promise<void> {
   const randomUsers = await fetchRandomUsers(batchSize);
   const formattedUsers = getFormatedUsers(randomUsers);
@@ -46,6 +54,12 @@ async function setFormattedUsers(): Promise<void> {
   updateCountryFilter();
   formattedAndValidUsers = [...formattedAndValidUsers, ...validFormattedUsers];
   applyFiltersAndRender();
+
+  if (!favoriteSectionUpdater) {
+    favoriteSectionUpdater = generateFavoritesSection(formattedAndValidUsers);
+  } else {
+    favoriteSectionUpdater.updateFavorites();
+  }
 }
 
 function updateCountryFilter(): void {
@@ -61,9 +75,22 @@ function updateCountryFilter(): void {
   }
 }
 
-function applyFiltersAndRender(): void {
-  const filteredUsers = filterUsers(formattedAndValidUsers, currentFilterParams);
+export function applyFiltersAndRender(): void {
+  let filteredUsers = filterUsers(formattedAndValidUsers, currentFilterParams);
+
+  if (searchParams.length > 0) {
+    filteredUsers = findUser(filteredUsers, searchParams); // Apply search filters
+  }
+
+  // Update the teacher grid view
   createTeacherGrid(filteredUsers);
+
+  // Update the table view
+  setUsersList(filteredUsers);
+
+  if (favoriteSectionUpdater) {
+    favoriteSectionUpdater.updateFavorites();
+  }
 }
 
 function createTeacherGrid(users: FormattedUser[]): void {
@@ -135,7 +162,7 @@ function formatGender(value: string): 'Male' | 'Female' | undefined {
   return value !== 'all' ? (value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()) as 'Male' | 'Female' : undefined;
 }
 
-(async function initialize() {
+async function initialize() {
   await setFormattedUsers();
 
   const loadMoreButton = document.querySelector('#load-more-btn');
@@ -167,4 +194,32 @@ function formatGender(value: string): 'Male' | 'Female' | undefined {
   if (favoritesFilter) {
     favoritesFilter.addEventListener('change', handleFilterChange);
   }
-})();
+
+  const searchButton = document.querySelector('.search-button');
+  if (searchButton) {
+    searchButton.addEventListener('click', handleSearch);
+  }
+
+  // Add sort event listeners for the table headers
+  addSortEventListeners();
+}
+
+function handleSearch(): void {
+  const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+  if (!searchInput) return;
+
+  const searchValue = searchInput.value.trim().toLowerCase();
+  if (!searchValue) {
+    searchParams = [];
+  } else {
+    searchParams = [
+      { key: 'full_name', value: searchValue },
+      { key: 'note', value: searchValue },
+      { key: 'age', value: searchValue }
+    ];
+  }
+
+  applyFiltersAndRender();
+}
+
+initialize();

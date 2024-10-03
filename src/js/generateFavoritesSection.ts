@@ -25,9 +25,20 @@ export function generateFavoritesSection(users: FormattedUser[]) {
             const user = favorites[(currentStartIndex + i) % favorites.length];
             const teacherCard = generateTeacherCard(user);
             teacherCard.classList.add('teacher-card');
-            teacherCard.addEventListener('click', () => {
-                generateTeacherPopup(user);
+            teacherCard.setAttribute('data-index', (currentStartIndex + i).toString());
+
+            teacherCard.addEventListener('click', (event) => {
+                const target = event.target as HTMLElement;
+                const card = target.closest('.teacher-card');
+                if (card) {
+                    const userIndex = card.getAttribute('data-index');
+                    if (userIndex) {
+                        const user = favorites[parseInt(userIndex)];
+                        generateTeacherPopup(user, favorites);
+                    }
+                }
             });
+
             favoritesContainer.appendChild(teacherCard);
         }
     }

@@ -1,7 +1,6 @@
 import { FormattedUser } from './models/FormattedUser';
-import { setUsersList } from "./generateTable";
 import { generateTeacherCard } from './generateTeacherCard';
-
+import { applyFiltersAndRender } from './app';
 export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]): void {
     const existingPopup = document.getElementById('teacher-info-popup');
     if (existingPopup) {
@@ -59,6 +58,7 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
         user.favorite = !user.favorite;
         updateUserCard(user, users);
         generateTeacherPopup(user, users); // Re-generate popup with updated data
+        applyFiltersAndRender();
     });
 
     // Attach event listener to close button
