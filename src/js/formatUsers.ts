@@ -1,5 +1,7 @@
-import {FormattedUser} from './models/FormattedUser.js';
-import {User} from './models/User.js';
+import { FormattedUser } from './models/FormattedUser.js';
+import { User } from './models/User.js';
+
+import _ from 'lodash';
 
 const capitalize = (s: string) => s ? s[0].toUpperCase() + s.slice(1) : '';
 
@@ -23,18 +25,18 @@ const toFormattedUser = (user: User): Partial<FormattedUser> => {
     };
 };
 
-const formatUsers = (users: User[]): Partial<FormattedUser>[] => {
-    return users.map(toFormattedUser);
-};
-
+const formatUsers = (users: User[]): Partial<FormattedUser>[] =>
+    _.map(users, toFormattedUser);
 
 const COURSES = [
     'Mathematics', 'Physics', 'English', 'Computer Science', 'Dancing',
     'Chess', 'Biology', 'Chemistry', 'Law', 'Art', 'Medicine', 'Statistics'
 ];
+
 function generateUniqueId(): string {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
+
 const addProperties = (user: Partial<FormattedUser>, index: number): FormattedUser => {
     return {
         ...user,
@@ -46,9 +48,7 @@ const addProperties = (user: Partial<FormattedUser>, index: number): FormattedUs
     } as FormattedUser;
 };
 
-const enrichAllUsers = (users: Partial<FormattedUser>[]): FormattedUser[] => {
-    return users.map(addProperties);
-};
+const enrichAllUsers = (users: Partial<FormattedUser>[]): FormattedUser[] => _.map(users, addProperties);
 
 export const getFormatedUsers = (randomUsers: User[]): FormattedUser[] => {
     try {
