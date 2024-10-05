@@ -1,6 +1,21 @@
 import { FormattedUser } from './models/FormattedUser';
 import { generateTeacherCard } from './generateTeacherCard';
 import { applyFiltersAndRender } from './app';
+import L from 'leaflet';  // Import Leaflet
+
+// Function to initialize and display the map
+function initMap(lat: number, lng: number, mapElement: HTMLElement): void {
+    const map = L.map(mapElement).setView([lat, lng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+        .bindPopup('Teacher Location')
+        .openPopup();
+}
+
 export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]): void {
     const existingPopup = document.getElementById('teacher-info-popup');
     if (existingPopup) {
@@ -40,6 +55,7 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
                     <p>${user.age}, ${user.gender}</p>
                     <p>${user.email}</p>
                     <p>${user.phone}</p>
+                    <div class="map-container" id="map" style="height: 0; overflow: hidden;"></div>
                 </div>
             </div>
         </div>
@@ -64,6 +80,25 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
     // Attach event listener to close button
     const closeButton = popup.querySelector('.close-btn-popup') as HTMLElement;
     closeButton.addEventListener('click', () => hidePopup('teacher-info-popup', 'overlay-teacher-info-popup'));
+
+    // Attach event listener to Toggle map link
+    const toggleMapLink = popup.querySelector('.toggle-map') as HTMLElement;
+    const coordinates = user.coordinates;
+
+    if (coordinates && coordinates.latitude && coordinates.longitude) {
+        toggleMapLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const mapContainer = document.getElementById('map') as HTMLElement;
+            if (mapContainer.style.height === '0px') {
+                mapContainer.style.height = '300px';
+                initMap(parseFloat(coordinates.latitude), parseFloat(coordinates.longitude), mapContainer);
+            } else {
+                mapContainer.style.height = '0';
+            }
+        });
+    } else {
+        toggleMapLink.style.display = 'none';
+    }
 
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
