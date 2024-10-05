@@ -1,7 +1,8 @@
 import { FormattedUser } from './models/FormattedUser';
 import { generateTeacherCard } from './generateTeacherCard';
 import { applyFiltersAndRender } from './app';
-import L from 'leaflet';  // Import Leaflet
+import L from 'leaflet';
+import dayjs from 'dayjs';
 
 // Function to initialize and display the map
 function initMap(lat: number, lng: number, mapElement: HTMLElement): void {
@@ -39,6 +40,7 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
         ? '<span class="star-icon" style="color: gold; cursor: pointer;">★</span>'
         : '<span class="star-icon" style="cursor: pointer;">★</span>';
 
+    const daysUntilBirthday = user.b_day ? calculateDaysUntilNextBirthday(user.b_day) : 'N/A';
     popup.innerHTML = `
         <div class="header-popup">
             <h1>Teacher Info</h1>
@@ -53,6 +55,7 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
                     <p>${user.course}</p>
                     <p>${user.city}, ${user.country}</p>
                     <p>${user.age}, ${user.gender}</p>
+                    <p>Days until next birthday: ${daysUntilBirthday}</p>
                     <p>${user.email}</p>
                     <p>${user.phone}</p>
                     <div class="map-container" id="map" style="height: 0; overflow: hidden;"></div>
@@ -103,6 +106,17 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
 
+function calculateDaysUntilNextBirthday(birthDateString: string): number {
+    const today = dayjs();
+    const birthDate = dayjs(birthDateString);
+    let nextBirthday = birthDate.year(today.year());
+
+    if (nextBirthday.isBefore(today)) {
+        nextBirthday = nextBirthday.add(1, 'year');
+    }
+
+    return nextBirthday.diff(today, 'day');
+}
 function showPopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;
     const overlay = document.getElementById(overlayId) as HTMLDivElement | null;
