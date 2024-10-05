@@ -60,10 +60,6 @@
             <label for="region-filter">Region</label>
             <select id="region-filter" name="region-filter">
                 <option value="all">All</option>
-                <option value="north">North</option>
-                <option value="south">South</option>
-                <option value="east">East</option>
-                <option value="west">West</option>
             </select>
 
             <span class="divider"></span>
@@ -73,24 +69,22 @@
                 <option value="all">All</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="other">Other</option>
             </select>
 
             <span class="divider"></span>
-
 
             <input type="checkbox" id="photo-filter" name="photo-filter">
             <label for="photo-filter">Only with photo</label>
 
             <span class="divider"></span>
 
-
             <input type="checkbox" id="favorites-filter" name="favorites-filter">
             <label for="favorites-filter">Only Favorites</label>
         </div>
 
-        <div class="teacher-grid">
-        </div>
+        <div class="teacher-grid"></div>
+
+        <button id="load-more-btn" class="load-more-button">Load More Users</button>
     </section>
 
     <section class="section">
@@ -214,12 +208,12 @@
                     <label for="teacher-country">Country:</label>
                     <select id="teacher-country" name="teacher-country" required>
                         <option value="">Select Country</option>
-                        <option value="usa">United States</option>
-                        <option value="canada">Canada</option>
-                        <option value="uk">United Kingdom</option>
-                        <option value="germany">Germany</option>
-                        <option value="france">France</option>
-                        <option value="australia">Australia</option>
+                        <option value="Usa">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Uk">United Kingdom</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Australia">Australia</option>
                     </select>
                 </div>
                 <div>
@@ -245,10 +239,8 @@
                 <label for="teacher-sex">Sex:</label>
                 <select id="teacher-sex" name="teacher-sex" required>
                     <option value="" disabled selected>Select sex</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer-not-to-say">Prefer not to say</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                 </select>
             </div>
             <div class="form-group small-fields">

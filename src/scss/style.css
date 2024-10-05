@@ -271,7 +271,7 @@
 }
 .teacher-card:hover .teacher-image {
   transform: scale(1.1);
-  border-color: #993400;
+  border-color: rgb(153, 52.2, 0);
 }
 
 .teacher-image {
@@ -320,6 +320,26 @@
 .teacher-info-geo {
   font-size: 12px;
   font-weight: lighter;
+}
+
+.load-more-button {
+  padding: 10px 20px;
+  margin-left: 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #ff5700;
+  border: 1px solid #ff5700;
+  background-color: white;
+  box-sizing: border-box;
+}
+.load-more-button:hover {
+  background-color: #ff5700;
+  color: white;
+}
+@media (max-width: 480px) {
+  .load-more-button {
+    margin-left: 0;
+  }
 }
 
 .table-container {

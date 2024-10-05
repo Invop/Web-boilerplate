@@ -27,31 +27,22 @@ const formatUsers = (users: User[]): Partial<FormattedUser>[] => {
     return users.map(toFormattedUser);
 };
 
-const capitalizeGenderAdditionalUsers = (users: Partial<FormattedUser>[]): Partial<FormattedUser>[] => {
-    return users.map(user => ({
-        ...user,
-        gender: user.gender ? capitalize(user.gender) as 'Male' | 'Female' : undefined,
-    }));
-};
-
-const combineUsers = (users1: Partial<FormattedUser>[], users2: Partial<FormattedUser>[]): Partial<FormattedUser>[] => {
-    const uniqueUsers = new Map(users1.concat(users2).map(user => [user.email, user]));
-    return Array.from(uniqueUsers.values());
-};
 
 const COURSES = [
     'Mathematics', 'Physics', 'English', 'Computer Science', 'Dancing',
     'Chess', 'Biology', 'Chemistry', 'Law', 'Art', 'Medicine', 'Statistics'
 ];
-
+function generateUniqueId(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
 const addProperties = (user: Partial<FormattedUser>, index: number): FormattedUser => {
     return {
         ...user,
-        id: user.id || `${index + 1}`,
+        id: generateUniqueId(),
         favorite: user.favorite !== undefined ? user.favorite : Math.random() >= 0.5,
         course: user.course || COURSES[Math.floor(Math.random() * COURSES.length)],
         bg_color: user.bg_color || '#ffffff',
-        note: user.note || '',
+        note: user.note || (Math.random() >= 0.5 ? 'Lorem' : 'Ipsum'),
     } as FormattedUser;
 };
 
@@ -59,12 +50,10 @@ const enrichAllUsers = (users: Partial<FormattedUser>[]): FormattedUser[] => {
     return users.map(addProperties);
 };
 
-export const generateUsers = (randomUsers: User[], additionalUsers: Partial<FormattedUser>[]): FormattedUser[] => {
+export const getFormatedUsers = (randomUsers: User[]): FormattedUser[] => {
     try {
         const formattedUsers = formatUsers(randomUsers);
-        const formattedAdditionalUsers = capitalizeGenderAdditionalUsers(additionalUsers);
-        const mergedUsers = combineUsers(formattedUsers, formattedAdditionalUsers);
-        return enrichAllUsers(mergedUsers);
+        return enrichAllUsers(formattedUsers);
     } catch (error) {
         console.error('An error occurred:', error);
         return [];

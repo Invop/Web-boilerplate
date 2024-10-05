@@ -1,8 +1,7 @@
 import { FormattedUser } from './models/FormattedUser';
-import { updateTeacherGrid, validFormattedUsers,favoritesSection } from './app';
-import {setUsersList} from "./generateTable";
-
-export function generateTeacherPopup(user: FormattedUser): void {
+import { generateTeacherCard } from './generateTeacherCard';
+import { applyFiltersAndRender } from './app';
+export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]): void {
     const existingPopup = document.getElementById('teacher-info-popup');
     if (existingPopup) {
         existingPopup.remove();
@@ -22,19 +21,19 @@ export function generateTeacherPopup(user: FormattedUser): void {
     popup.id = 'teacher-info-popup';
 
     const starIconHTML = user.favorite
-        ? '<span class="star-icon" id="star-icon" style="color: gold; cursor: pointer;">★</span>'
-        : '<span class="star-icon" id="star-icon" style="cursor: pointer;">★</span>';
+        ? '<span class="star-icon" style="color: gold; cursor: pointer;">★</span>'
+        : '<span class="star-icon" style="cursor: pointer;">★</span>';
 
     popup.innerHTML = `
         <div class="header-popup">
             <h1>Teacher Info</h1>
-            <button class="close-btn-popup" onclick="hidePopup('teacher-info-popup', 'overlay-teacher-info-popup')">&times;</button>
+            <button class="close-btn-popup">&times;</button>
         </div>
         <div class="content-popup">
             <img src="${user.picture_large ?? 'https://via.placeholder.com/100'}" alt="Teacher Avatar" class="avatar">
             <div class="info-popup">
                 <h2>${user.full_name}</h2>
-                ${starIconHTML}
+                <div class="star-icon-container">${starIconHTML}</div>
                 <div class="details-popup">
                     <p>${user.course}</p>
                     <p>${user.city}, ${user.country}</p>
@@ -53,67 +52,21 @@ export function generateTeacherPopup(user: FormattedUser): void {
     document.body.appendChild(overlay);
     document.body.appendChild(popup);
 
-    const starIcon = document.getElementById('star-icon');
-    if (starIcon) {
-        starIcon.addEventListener('click', () => {
-            user.favorite = !user.favorite;
-            updateTeacherGrid(validFormattedUsers);
-            favoritesSection.updateFavorites();
-            generateTeacherPopup(user);
-        });
-    }
+    // Attach event listener to star icon using event delegation
+    const starIcon = popup.querySelector('.star-icon') as HTMLElement;
+    starIcon.addEventListener('click', () => {
+        user.favorite = !user.favorite;
+        updateUserCard(user, users);
+        generateTeacherPopup(user, users); // Re-generate popup with updated data
+        applyFiltersAndRender();
+    });
+
+    // Attach event listener to close button
+    const closeButton = popup.querySelector('.close-btn-popup') as HTMLElement;
+    closeButton.addEventListener('click', () => hidePopup('teacher-info-popup', 'overlay-teacher-info-popup'));
 
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
-
-document.getElementById('add-teacher-form')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const newTeacher = createNewUser();
-    if (newTeacher) {
-        validFormattedUsers.push(newTeacher);
-        updateTeacherGrid(validFormattedUsers);
-        setUsersList(validFormattedUsers);
-        hidePopup('add-teacher-popup', 'overlay-add-teacher-popup');
-    } else {
-        alert('Please fill all required fields correctly.');
-    }
-});
-
-function createNewUser(): FormattedUser | null {
-    const form = document.getElementById('add-teacher-form') as HTMLFormElement;
-    const formData = new FormData(form);
-
-    const gender = formData.get('teacher-sex') as string;
-
-    if (!gender || !(gender === 'male' || gender === 'female')) {
-        return null;
-    }
-
-    return {
-        id: String(validFormattedUsers.length + 1),
-        favorite: false,
-        course: formData.get('teacher-speciality') as string,
-        bg_color: formData.get('teacher-bgcolor') as string,
-        note: formData.get('teacher-notes') as string || '',
-        gender: gender.charAt(0).toUpperCase() + gender.slice(1) as 'Male' | 'Female',
-        full_name: formData.get('teacher-name') as string,
-        city: formData.get('teacher-city') as string,
-        country: (formData.get('teacher-country') as string).toLowerCase(),
-        email: formData.get('teacher-email') as string,
-        age: calculateAge(new Date(formData.get('teacher-dob') as string)),
-        phone: formData.get('teacher-phone') as string,
-    };
-}
-
-function calculateAge(birthday: Date): number {
-    const ageDifMs = Date.now() - birthday.getTime();
-    const ageDate = new Date(ageDifMs);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-}
-
-
-
-
 
 function showPopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;
@@ -128,7 +81,7 @@ function showPopup(popupId: string, overlayId: string): void {
     overlay.style.display = 'block';
 }
 
-function hidePopup(popupId: string, overlayId: string): void {
+export function hidePopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;
     const overlay = document.getElementById(overlayId) as HTMLDivElement | null;
 
@@ -139,6 +92,26 @@ function hidePopup(popupId: string, overlayId: string): void {
 
     popup.style.display = 'none';
     overlay.style.display = 'none';
+}
+
+function updateUserCard(user: FormattedUser, users: FormattedUser[]): void {
+    const teacherGrid = document.querySelector('.teacher-grid');
+    if (!teacherGrid) {
+        console.error('Teacher grid not found');
+        return;
+    }
+
+    const userCard = teacherGrid.querySelector(`[data-name="${user.id}"]`);
+    if (!userCard) {
+        console.error('User card not found');
+        return;
+    }
+
+    const newCard = generateTeacherCard(user);
+    newCard.setAttribute('data-name', user.id);
+    newCard.setAttribute('data-index', users.indexOf(user).toString()); // Ensure the new card has the correct index
+
+    teacherGrid.replaceChild(newCard, userCard);
 }
 
 (window as any).showPopup = showPopup;
