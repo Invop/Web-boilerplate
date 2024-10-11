@@ -4,7 +4,10 @@ import { applyFiltersAndRender } from './app';
 import L from 'leaflet';
 import dayjs from 'dayjs';
 
-// Function to initialize and display the map
+// Default coordinates
+const DEFAULT_LATITUDE = 51.505;
+const DEFAULT_LONGITUDE = -0.09;
+
 function initMap(lat: number, lng: number, mapElement: HTMLElement): void {
     const map = L.map(mapElement).setView([lat, lng], 13);
 
@@ -87,21 +90,19 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
     // Attach event listener to Toggle map link
     const toggleMapLink = popup.querySelector('.toggle-map') as HTMLElement;
     const coordinates = user.coordinates;
+    const latitude = coordinates?.latitude ? parseFloat(coordinates.latitude) : DEFAULT_LATITUDE;
+    const longitude = coordinates?.longitude ? parseFloat(coordinates.longitude) : DEFAULT_LONGITUDE;
 
-    if (coordinates && coordinates.latitude && coordinates.longitude) {
-        toggleMapLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            const mapContainer = document.getElementById('map') as HTMLElement;
-            if (mapContainer.style.height === '0px') {
-                mapContainer.style.height = '300px';
-                initMap(parseFloat(coordinates.latitude), parseFloat(coordinates.longitude), mapContainer);
-            } else {
-                mapContainer.style.height = '0';
-            }
-        });
-    } else {
-        toggleMapLink.style.display = 'none';
-    }
+    toggleMapLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const mapContainer = document.getElementById('map') as HTMLElement;
+        if (mapContainer.style.height === '0px') {
+            mapContainer.style.height = '300px';
+            initMap(latitude, longitude, mapContainer);
+        } else {
+            mapContainer.style.height = '0';
+        }
+    });
 
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
 }
@@ -117,6 +118,7 @@ function calculateDaysUntilNextBirthday(birthDateString: string): number {
 
     return nextBirthday.diff(today, 'day');
 }
+
 function showPopup(popupId: string, overlayId: string): void {
     const popup = document.getElementById(popupId) as HTMLDivElement | null;
     const overlay = document.getElementById(overlayId) as HTMLDivElement | null;

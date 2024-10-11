@@ -98,41 +98,7 @@
 
     <section class="section">
         <h2 class="section-title">Statistics</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <th id="sortName">Name</th>
-                    <th id="sortSpeciality">Speciality</th>
-                    <th id="sortAge">Age</th>
-                    <th id="sortGender">Gender</th>
-                    <th id="sortNationality">Nationality</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td data-label="Name">John Doe</td>
-                    <td data-label="Speciality">Software Engineer</td>
-                    <td data-label="Age">30</td>
-                    <td data-label="Gender">Male</td>
-                    <td data-label="Nationality">American</td>
-                </tr>
-                <tr>
-                    <td data-label="Name">John Doe</td>
-                    <td data-label="Speciality">Software Engineer</td>
-                    <td data-label="Age">30</td>
-                    <td data-label="Gender">Male</td>
-                    <td data-label="Nationality">American</td>
-                </tr>
-                <!-- Add more rows as needed -->
-                </tbody>
-            </table>
-            <div id="pagination">
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <span class="dots">...</span>
-                <a href="#" class="page-link last">Last</a>
-            </div>
-        </div>
+        <canvas id="statisticsChart" width="400" height="400" style="max-width: 500px; max-height: 500px"></canvas>
     </section>
 
     <section class="section">
@@ -265,7 +231,7 @@
         </form>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="../build/app.js"></script>
 </body>
 </html>

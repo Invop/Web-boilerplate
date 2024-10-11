@@ -12,7 +12,7 @@ import { filterUsers } from "./filterUsers";
 import { FilterParams, Range } from "./models/FilterParams";
 import { findUser } from "./findUser";
 import { SearchParams } from "./models/SearchParams";
-import { setUsersList, addSortEventListeners } from './generateTable';
+import { setUsersList } from './user_pie_chart';
 import { generateFavoritesSection } from './generateFavoritesSection';
 
 const randomUserAPI = 'https://randomuser.me/api/?results=';
@@ -207,9 +207,6 @@ async function initialize() {
   if (addTeacherForm) {
     addTeacherForm.addEventListener('submit', handleAddTeacherForm);
   }
-
-  // Add sort event listeners for the table headers
-  addSortEventListeners();
 }
 
 async function handleAddTeacherForm(event: Event): Promise<void> {
