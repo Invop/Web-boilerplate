@@ -1,3 +1,13 @@
+export interface Coordinates {
+    latitude: string;
+    longitude: string;
+}
+
+export interface Timezone {
+    offset: string;
+    description: string;
+}
+
 export interface FormattedUser {
     id: string;
     favorite: boolean;
@@ -11,8 +21,8 @@ export interface FormattedUser {
     state?: string;
     country: string;
     postcode?: string;
-    coordinates?: { latitude: string; longitude: string };
-    timezone?: { offset: string; description: string };
+    coordinates?: Coordinates;
+    timezone?: Timezone;
     email: string;
     b_day?: string;
     age: number;

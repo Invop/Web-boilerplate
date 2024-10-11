@@ -1,6 +1,25 @@
 import { FormattedUser } from './models/FormattedUser';
 import { generateTeacherCard } from './generateTeacherCard';
 import { applyFiltersAndRender } from './app';
+import L from 'leaflet';
+import dayjs from 'dayjs';
+
+// Default coordinates
+const DEFAULT_LATITUDE = 51.505;
+const DEFAULT_LONGITUDE = -0.09;
+
+function initMap(lat: number, lng: number, mapElement: HTMLElement): void {
+    const map = L.map(mapElement).setView([lat, lng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+        .bindPopup('Teacher Location')
+        .openPopup();
+}
+
 export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]): void {
     const existingPopup = document.getElementById('teacher-info-popup');
     if (existingPopup) {
@@ -24,6 +43,7 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
         ? '<span class="star-icon" style="color: gold; cursor: pointer;">★</span>'
         : '<span class="star-icon" style="cursor: pointer;">★</span>';
 
+    const daysUntilBirthday = user.b_day ? calculateDaysUntilNextBirthday(user.b_day) : 'N/A';
     popup.innerHTML = `
         <div class="header-popup">
             <h1>Teacher Info</h1>
@@ -38,8 +58,10 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
                     <p>${user.course}</p>
                     <p>${user.city}, ${user.country}</p>
                     <p>${user.age}, ${user.gender}</p>
+                    <p>Days until next birthday: ${daysUntilBirthday}</p>
                     <p>${user.email}</p>
                     <p>${user.phone}</p>
+                    <div class="map-container" id="map" style="height: 0; overflow: hidden;"></div>
                 </div>
             </div>
         </div>
@@ -65,7 +87,36 @@ export function generateTeacherPopup(user: FormattedUser, users: FormattedUser[]
     const closeButton = popup.querySelector('.close-btn-popup') as HTMLElement;
     closeButton.addEventListener('click', () => hidePopup('teacher-info-popup', 'overlay-teacher-info-popup'));
 
+    // Attach event listener to Toggle map link
+    const toggleMapLink = popup.querySelector('.toggle-map') as HTMLElement;
+    const coordinates = user.coordinates;
+    const latitude = coordinates?.latitude ? parseFloat(coordinates.latitude) : DEFAULT_LATITUDE;
+    const longitude = coordinates?.longitude ? parseFloat(coordinates.longitude) : DEFAULT_LONGITUDE;
+
+    toggleMapLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const mapContainer = document.getElementById('map') as HTMLElement;
+        if (mapContainer.style.height === '0px') {
+            mapContainer.style.height = '300px';
+            initMap(latitude, longitude, mapContainer);
+        } else {
+            mapContainer.style.height = '0';
+        }
+    });
+
     showPopup('teacher-info-popup', 'overlay-teacher-info-popup');
+}
+
+function calculateDaysUntilNextBirthday(birthDateString: string): number {
+    const today = dayjs();
+    const birthDate = dayjs(birthDateString);
+    let nextBirthday = birthDate.year(today.year());
+
+    if (nextBirthday.isBefore(today)) {
+        nextBirthday = nextBirthday.add(1, 'year');
+    }
+
+    return nextBirthday.diff(today, 'day');
 }
 
 function showPopup(popupId: string, overlayId: string): void {
