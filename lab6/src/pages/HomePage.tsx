@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import WeatherComponent from "./WeatherComponent.tsx";
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
@@ -13,9 +14,7 @@ const HomePage: React.FC = () => {
     }, [navigate]);
 
     return (
-        <div>
-            <h1>Welcome to the Home Page</h1>
-        </div>
+        <WeatherComponent/>
     );
 };
 
