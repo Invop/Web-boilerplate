@@ -1,13 +1,16 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import "./loginPage.css";
+import Cookies from "js-cookie";
+import "./Login.css";
 import Input from "../components/login/input/input.tsx";
 import Button from "../components/login/button/button.tsx";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+    const navigate = useNavigate();
 
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -28,7 +31,9 @@ const Login: React.FC = () => {
         } else if (email !== "Andrii3@gmail.com" || password !== "Andrii3") {
             setError("Invalid email or password.");
         } else {
+            Cookies.set("auth", "true", { expires: rememberMe ? 7 : undefined });  // <--- додано
             setError("");
+            navigate("/");  // <--- додано
         }
     };
 
